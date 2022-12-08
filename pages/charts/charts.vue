@@ -1,6 +1,6 @@
 <template>
-	<view>
-		
+	<view class="charts_warp">
+
 	</view>
 </template>
 
@@ -15,5 +15,8 @@
 </script>
 
 <style lang="scss">
-
+.charts_warp{
+	display: flex;
+	justify-content: center;
+}
 </style>
