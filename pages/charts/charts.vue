@@ -1,10 +1,25 @@
 <template>
 	<view class="charts_warp">
 		<view class="charts_content">
-			<view class="charts_item"></view>
+			<view v-for='item in chartContentList'>
+				<view class="charts_item-left" v-if="item.location==='left'">
+					<u-avatar icon="/static/img/robot-avater.png" fontSize="22"></u-avatar>
+					<view class="charts_item-left--text">{{item.content}}</view>
+				</view>
+				<view class="charts_item-right" v-if="item.location==='right'">
+					<view class="charts_item-right--text">{{item.content}}</view>
+					<u-avatar icon="/static/img/old-avater.png" fontSize="22"></u-avatar>
+				</view>
+			</view>
 
 		</view>
-		<view class="charts_send"></view>
+		<view class="charts_send">
+			<u--input placeholder="输入开始咨询" border="surround" v-model="value"></u--input>
+			<view class="charts_send--btn-warp">
+				<u-button type="success" :disabled="value===''"  text="发送" class="charts_send--btn" @click="send"></u-button>
+			</view>
+
+		</view>
 	</view>
 
 </template>
@@ -13,8 +28,28 @@
 	export default {
 		data() {
 			return {
-
+				value: '测试测试测试',
+				chartContentList: [{
+						location: 'left',
+						content: '测试机我i'
+					},
+					{
+						location: 'right',
+						content: '我来问问题'
+					}
+				]
 			};
+		},
+		methods: {
+			send() {
+				this.chartContentList.push({
+					location: 'right',
+					content: this.value
+				})
+				this.value = ''
+
+
+			}
 		}
 	}
 </script>
@@ -26,22 +61,75 @@
 
 		.charts_content {
 			height: calc(100% - 116rpx);
+			background-color: #F5F5F5;
+			scroll-behavior: smooth;
 			overflow: auto;
 
-			.charts_item {
-				height: 80rpx;
-				background-color: aquamarine;
-				margin-bottom: 10rpx;
+			.charts_item-left {
+				margin: 20rpx 20rpx;
+				// height: 100rpx;
+				display: flex;
+				box-sizing: border-box;
+				// align-items: center;
+
+				&--text {
+					background-color: #fff;
+					margin-right: 9px;
+					width: 288px;
+					padding: 9px;
+					box-sizing: border-box;
+					border-radius: 9px;
+					letter-spacing: 1px;
+					display: flex;
+					justify-content: flex-end;
+					width: auto;
+				}
+			}
+
+			.charts_item-right {
+				margin: 20rpx 20rpx;
+				// height: 100rpx;
+				display: flex;
+				justify-content: flex-end;
+				box-sizing: border-box;
+				// align-items: center;
+
+				&--text {
+					background-color: #fff;
+					margin-right: 9px;
+					width: 288px;
+					padding: 9px;
+					box-sizing: border-box;
+					border-radius: 9px;
+					letter-spacing: 1px;
+					display: flex;
+					justify-content: flex-end;
+					width: auto;
+				}
 			}
 		}
 
 		.charts_send {
-			background-color: aliceblue;
-			height: 110rpx;
+			height: 90rpx;
 			width: 100%;
 			position: fixed;
+			display: grid;
+			grid-template-columns: 80% 20%;
+			grid-template-rows: 100%;
+			margin: 10rpx 10rpx;
 			bottom: 0;
 			left: 0;
+
+			&--btn-warp {
+				display: flex;
+				justify-content: center;
+				align-items: center;
+
+				.charts_send--btn {
+					width: 100rpx;
+				}
+			}
+
 		}
 	}
 </style>
