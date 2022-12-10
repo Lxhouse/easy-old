@@ -1,7 +1,7 @@
 <template>
 	<view class="charts_warp">
-		<view class="charts_content">
-			<view v-for='item in chartContentList'>
+		<view class="charts_content" ref="charts_content">
+			<view class="chartContentList" v-for='item in chartContentList' ref="charts_content">
 				<view class="charts_item-left" v-if="item.location==='left'">
 					<u-avatar icon="/static/img/robot-avater.png" fontSize="22"></u-avatar>
 					<view class="charts_item-left--text">{{item.content}}</view>
@@ -16,7 +16,8 @@
 		<view class="charts_send">
 			<u--input placeholder="输入开始咨询" border="surround" v-model="value"></u--input>
 			<view class="charts_send--btn-warp">
-				<u-button type="success" :disabled="value===''"  text="发送" class="charts_send--btn" @click="send"></u-button>
+				<u-button type="success" :disabled="value===''" text="发送" class="charts_send--btn" @click="send">
+				</u-button>
 			</view>
 
 		</view>
@@ -36,6 +37,34 @@
 					{
 						location: 'right',
 						content: '我来问问题'
+					}, {
+						location: 'left',
+						content: '测试机我i'
+					},
+					{
+						location: 'right',
+						content: '我来问问题'
+					}, {
+						location: 'left',
+						content: '测试机我i'
+					},
+					{
+						location: 'right',
+						content: '我来问问题'
+					}, {
+						location: 'left',
+						content: '测试机我i'
+					},
+					{
+						location: 'right',
+						content: '我来问问题'
+					}, {
+						location: 'left',
+						content: '测试机我i'
+					},
+					{
+						location: 'right',
+						content: '我来问问题'
 					}
 				]
 			};
@@ -47,7 +76,10 @@
 					content: this.value
 				})
 				this.value = ''
-
+				this.$nextTick(() => {
+					document.querySelector('.charts_content').scrollTop = document.querySelector('.charts_content')
+						.scrollHeight;
+				})
 
 			}
 		}
@@ -64,6 +96,10 @@
 			background-color: #F5F5F5;
 			scroll-behavior: smooth;
 			overflow: auto;
+
+			.chartContentList {
+				overflow: auto;
+			}
 
 			.charts_item-left {
 				margin: 20rpx 20rpx;
