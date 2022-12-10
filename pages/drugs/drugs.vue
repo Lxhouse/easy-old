@@ -1,7 +1,6 @@
 <template>
-	<scroll-view scroll-y="true">
-		<view class="send"></view>
-	</scroll-view>
+	<view> <easy-scroll></easy-scroll></view>
+	
 </template>
 
 <script>

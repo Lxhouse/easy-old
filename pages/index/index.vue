@@ -1,7 +1,7 @@
 <template>
 	<view class="inde-warp">
 		<u-button type="primary" text="健康" @click="goHealth"></u-button>
-		<u-button type="primary" text="娱乐"></u-button>
+		<u-button type="primary" text="社区" @click="goCommunity"></u-button>
 		<u-button type="primary" text="子女"></u-button>
 
 	</view>
@@ -19,6 +19,11 @@
 			goHealth() {
 				uni.navigateTo({
 					url: '/pages/health/health'
+				})
+			},
+			goCommunity(){
+				uni.navigateTo({
+					url:'/pages/community/community'
 				})
 			}
 		}

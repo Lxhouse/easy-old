@@ -7,7 +7,7 @@
 			<u-grid :col="4" :border="false">
 				<u-grid-item v-for="(item,index) in moreFun" :key="index" @click="navClick(item.onPlate)">
 					<view class="u-flex u-p-t-30 u-p-b-30"
-						style="position: relative;flex-direction: column;justify-content: center;">
+						style="position: relative;display:flex;align-items: center;flex-direction: column;font-weight: 900; column;justify-content: center;">
 						<image style="width: 70rpx;height: 70rpx;" :src="item.icon" />
 						<view class="grid-text" style="color: #666;font-size: 22rpx;">{{item.word}}</view>
 					</view>
