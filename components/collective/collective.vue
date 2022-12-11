@@ -1,20 +1,26 @@
 <template>
 	<view class="collective">
 		<view class="info-block" v-for="item in infoList">
-			<view class="info-block--head" >
+			<view class="info-block--head">
 				<u-avatar :src="item.avaterSrc" shape="circle" size="30"></u-avatar>
 				<span style="margin-left: 20rpx;">{{item.name}}</span>
 			</view>
 			<view class="info-block--body">
 				<view class="">
-				{{item.content}}
+					{{item.content}}
 				</view>
 			</view>
 			<view class="info-block--footer">
 				<!-- <view :class="{unLiekBox:true,likeBox:isLike}" @click="onLike"></view> -->
-				<image src="/static/img//unLike.png" mode="aspectFill" class="info-commit"></image>
-				<image src="/static/img/commit.png" mode="aspectFill" class="info-commit"></image>
+				<image :src="item.isLike===0?'/static/img//unLike.png':'/static/img//isLike.png'" mode="aspectFill"
+					class="info-commit" @click="handelLike(item)"></image><span
+					style='margin-left: 10rpx;'>{{item.likeNum||0}}</span>
+				<image src="/static/img/commit.png" mode="aspectFill" class="info-commit"></image><span
+					style='margin-left: 10rpx;'>{{item.messageNum||0}}</span>
 			</view>
+		</view>
+		<view class="info-send">
+			<u-icon name="plus" color="#000" size="28"></u-icon>
 		</view>
 	</view>
 </template>
@@ -25,29 +31,34 @@
 		data() {
 			return {
 				infoList: [{
-					userId: 1,
-					name:'我是大牛逼',
+					messageID: 1,
+					name: '我是大牛逼',
 					avaterSrc: '/static/img/people.png',
-					content:'这是用来测试发送的,这是用来测试发送的,这是用来测试发送的,这是用来测试发送的,这是用来测试发送的',
-					isLike: 0,
-				},{
-					userId: 2,
-					name:'我是大牛逼',
+					content: '这是用来测试发送的,这是用来测试发送的,这是用来测试发送的,这是用来测试发送的,这是用来测试发送的',
+					isLike: 1,
+					likeNum: 22,
+					messageNum: 23
+				}, {
+					messageID: 2,
+					name: '我是大牛逼??',
 					avaterSrc: '/static/img/people.png',
-					content:'这是用来测试发送的,这是用来测试发送的,这是用来测试发送的,这是用来测试发送的,这是用来测试发送的',
+					content: '这是用来测试发送的,这是用来测试发送的,这是用来测试发送的,这是用来测试发送的,这是用来测试发送的',
 					isLike: 0,
-				},{
-					userId: 3,
-					name:'我是大牛逼',
+					likeNum: 2,
+				}, {
+					messageID: 3,
+					name: '我是大牛逼',
 					avaterSrc: '/static/img/people.png',
-					content:'这是用来测试发送的,这是用来测试发送的,这是用来测试发送的,这是用来测试发送的,这是用来测试发送的',
-					isLike: 0,
-				},{
-					userId: 4,
-					name:'我是大牛逼',
+					content: '这是用来测试发送的,这是用来测试发送的,这是用来测试发送的,这是用来测试发送的,这是用来测试发送的',
+					isLike: 1,
+					likeNum: 0,
+				}, {
+					messageID: 4,
+					name: '我是大牛逼',
 					avaterSrc: '/static/img/people.png',
-					content:'这是用来测试发送的,这是用来测试发送的,这是用来测试发送的,这是用来测试发送的,这是用来测试发送的',
+					content: '这是用来测试发送的,这是用来测试发送的,这是用来测试发送的,这是用来测试发送的,这是用来测试发送的',
 					isLike: 0,
+					likeNum: 0,
 				}],
 
 			};
@@ -56,8 +67,20 @@
 
 		},
 		methods: {
-			onLike() {
-				this.isLike = !this.isLike
+			handelLike(_item) {
+				this.infoList = this.infoList.map(e => {
+					if (e.messageID === _item.messageID) {
+						const _islike = _item.isLike
+						const _likeNum = _item.likeNum
+						return {
+							...e,
+							isLike: _islike === 0 ? 1 : 0,
+							likeNum: _islike === 0 ? _likeNum + 1 : _likeNum - 1
+						}
+					}else{
+						return e
+					}
+				})
 			}
 		}
 	}
@@ -66,6 +89,8 @@
 <style lang="scss">
 	.collective {
 		margin: 0 20rpx;
+		height: calc(100vh - 240rpx);
+		overflow-y: auto;
 
 		.info-block {
 			.info-block--head {
@@ -110,6 +135,17 @@
 					transition: background 0.6s steps(28);
 				}
 			}
+		}
+
+		.info-send {
+			position: fixed;
+			bottom: 0;
+			left: 0;
+			height: 100rpx;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			width: 100%;
 		}
 	}
 </style>

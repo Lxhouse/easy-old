@@ -1,7 +1,12 @@
 <template>
 	<view>
 		<u-subsection :list="list" :current="current" @change="changeTab"></u-subsection>
-		<collective />
+		<!-- <view class="community-content"> -->
+				<collective />
+		<!-- </view> -->
+<!-- 	<view class="community-content">
+		
+	</view> -->
 	</view>
 </template>
 
@@ -22,5 +27,8 @@
 </script>
 
 <style lang="scss">
-
+.community-content{
+	height: calc(100vh - 240rpx);
+	overflow-y: auto;
+}
 </style>
