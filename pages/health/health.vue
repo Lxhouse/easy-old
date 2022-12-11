@@ -58,6 +58,7 @@
 						<u--input v-model="healthInfo.weight" border="none" placeholder="请输入"></u--input>
 					</u-form-item>
 					<u-button type="success" text="确定" @click="handelForm"></u-button>
+					<u-button type="primary" text="暂存" @click="changeShow" style='margin-top: 30rpx;'></u-button>
 				</u-form>
 			</view>
 
@@ -76,7 +77,7 @@
 			return {
 				clockBtnText: "未打卡",
 				isClock: true,
-				show: true,
+				show: false,
 				healthInfo: {
 					blood: '',
 					bloodSugar: '',
