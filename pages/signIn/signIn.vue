@@ -6,7 +6,10 @@
 </template>
 
 <script>
-	/*  */
+	import {
+		$http
+	} from '@/serve/request.js'
+	import moment from 'moment'
 	export default {
 		data() {
 			return {
@@ -32,21 +35,22 @@
 						date: '10:30'
 					}
 				],
-				upDatakey: '', //为重新渲染DOM值，入不需要则可取消
 				extraData: [{
-					date: '2022-7-20',
+					date: '2022-12-10',
 					value: '签到',
 					status: true,
 					dot: true,
-					active: false
+					
 				}, {
-					date: '2022-7-19',
+					date: '2022-12-11',
 					value: '未签到',
 					status: false,
 					dot: true,
-					active: true
 				}]
 			}
+		},
+		created() {
+			this.getInfo()
 		},
 		methods: {
 			// 点击日数方法
@@ -65,6 +69,21 @@
 				index
 			}) {
 				console.log(row, index)
+			},
+			getInfo() {
+				const data = {
+					id: 1,
+					date: moment().format('YYYY-MM-DD')
+				}
+				$http('/getPlay/CardInfo',{data}).then(res=>{
+					this.list=res.list
+					this.extraData=res.extraData
+				}).catch(
+					uni.showToast({
+						icon: 'error',
+						title: "初始化失败"
+					})
+				)
 			}
 		}
 	}
