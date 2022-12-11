@@ -14,17 +14,83 @@
 				</u-grid-item>
 			</u-grid>
 		</view>
-		<view class="clockIn">
-			<button class="clockBtn succeed">{{clockBtnText}}</button>
+		<view class="clockIn" @click="handleClock">
+			<button :class="{clockBtn:true,wanc:!isClock,succeed:isClock} ">{{clockBtnText}}</button>
 		</view>
+		<u-popup :show="show" @close="changeShow" mode="right" customStyle="width:700rpx">
+			<view style="margin-top: 30rpx;margin-left: 30rpx;overflow: auto;height: 96vh;width: 600rpx;">
+				<view style="font-weight: 900;">请填写健康信息：</view>
+				<u-form labelPosition="left">
+					<u-form-item label="血压" prop="healthInfo.blood" borderBottom>
+						<u--input v-model="healthInfo.blood" border="none" placeholder="请输入"></u--input>
+					</u-form-item>
+					<u-form-item label="血糖" prop="healthInfo.bloodSugar" borderBottom>
+						<u--input v-model="healthInfo.bloodSugar" border="none" placeholder="请输入"></u--input>
+					</u-form-item>
+					<u-form-item label="已爬楼层" prop="healthInfo.floor" borderBottom>
+						<u--input v-model="healthInfo.floor" border="none" placeholder="请输入"></u--input>
+					</u-form-item>
+					<u-form-item label="心跳" prop="healthInfo.heart" borderBottom>
+						<u--input v-model="healthInfo.heart" border="none" placeholder="请输入"></u--input>
+					</u-form-item>
+					<u-form-item label="活动能量" prop="healthInfo.playEnergy" borderBottom>
+						<u--input v-model="healthInfo.playEnergy" border="none" placeholder="请输入"></u--input>
+					</u-form-item>
+					<u-form-item label="静息能量" prop="healthInfo.restingEnergy" borderBottom>
+						<u--input v-model="healthInfo.restingEnergy" border="none" placeholder="请输入"></u--input>
+					</u-form-item>
+					<u-form-item label="睡眠时长" prop="healthInfo.sleep" borderBottom>
+						<u--input v-model="healthInfo.sleep" border="none" placeholder="请输入"></u--input>
+					</u-form-item>
+					<u-form-item label="步数" prop="healthInfo.steps" borderBottom>
+						<u--input v-model="healthInfo.steps" border="none" placeholder="请输入"></u--input>
+					</u-form-item>
+					<u-form-item label="步行层数" prop="healthInfo.stepsLength" borderBottom>
+						<u--input v-model="healthInfo.stepsLength" border="none" placeholder="请输入"></u--input>
+					</u-form-item>
+					<u-form-item label="步行速度" prop="healthInfo.stepsSpeed" borderBottom>
+						<u--input v-model="healthInfo.stepsSpeed" border="none" placeholder="请输入"></u--input>
+					</u-form-item>
+					<u-form-item label="温度" prop="healthInfo.temper" borderBottom>
+						<u--input v-model="healthInfo.temper" border="none" placeholder="请输入"></u--input>
+					</u-form-item>
+					<u-form-item label="体重" prop="healthInfo.weight" borderBottom>
+						<u--input v-model="healthInfo.weight" border="none" placeholder="请输入"></u--input>
+					</u-form-item>
+					<u-button type="success" text="确定" @click="handelForm"></u-button>
+				</u-form>
+			</view>
+
+		</u-popup>
+
 	</view>
 </template>
 
 <script>
+	import {
+		$http
+	} from '@/serve/request.js'
+	import moment from 'moment'
 	export default {
 		data() {
 			return {
-				clockBtnText:"打卡",
+				clockBtnText: "未打卡",
+				isClock: true,
+				show: true,
+				healthInfo: {
+					blood: '',
+					bloodSugar: '',
+					floor: '',
+					heart: '',
+					playEnergy: '',
+					restingEnergy: '',
+					sleep: '',
+					steps: '',
+					stepsLength: '',
+					stepsSpeed: '',
+					temper: '',
+					weight: ''
+				},
 				moreFun: [{
 						icon: '/static/img/time.png',
 						word: '打卡信息',
@@ -47,6 +113,9 @@
 				],
 			};
 		},
+		created() {
+			this.getCardInfo()
+		},
 		methods: {
 			navClick(e) {
 				if (e == 'healthData') {
@@ -67,6 +136,66 @@
 					})
 				}
 			},
+			getCardInfo() {
+				const req = {
+					id: 1,
+					data: moment().format('YYYY-MM-DD')
+				}
+				$http('/parent/checkDailyInfo', req).then(
+					rees => {
+						if (res) {
+							this.isClock = true
+							his.clockBtnText = "已打卡"
+						} else {
+							this.isClock = false
+							his.clockBtnText = "未打卡"
+						}
+					}
+				)
+			},
+			handleClock() {
+				this.changeShow()
+				if (this.isClock === false) {
+
+				}
+			},
+			changeShow() {
+				console.log(123321, '测试')
+				this.show = !this.show
+			},
+			handelForm() {
+				$http('/parent/addDailyInfo', this.healthInfo, "POST").then(
+					res => {
+						this.healthInfo = {
+							blood: '',
+							bloodSugar: '',
+							floor: '',
+							heart: '',
+							playEnergy: '',
+							restingEnergy: '',
+							sleep: '',
+							steps: '',
+							stepsLength: '',
+							stepsSpeed: '',
+							temper: '',
+							weight: ''
+						}
+						this.showToast({
+							title: '打卡成功'
+						})
+					}
+				).catch(
+					uni.showToast({
+						icon: 'error',
+						title: "打卡失败"
+					})
+				).finally(
+					this.changeShow()
+				)
+
+
+			}
+
 		}
 	}
 </script>
@@ -154,6 +283,11 @@
 
 				/*规定动画播放方式：alternate为轮流反向播放*/
 				-webkit-animation-direction: alternate;
+			}
+
+			.wanc {
+				background-color: dodgerblue;
+				color: #fff;
 			}
 
 			@-webkit-keyframes submit {
