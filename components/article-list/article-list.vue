@@ -1,7 +1,7 @@
 <template>
 
 	<view class="article-list__warp">
-		<view class="article-list__item" v-for="item in articleList">
+		<view class="article-list__item" v-for="item in articleList" @click="handelArticle(item.artId)">
 			<view class="article-list__head">{{item.title}}</view>
 			<view class="article-list__body">
 				<view class="article-list__body--text">
@@ -25,18 +25,14 @@
 					title: '没错这是一个！标题！！',
 					imgUrl: '../../static/img/people.png',
 					introduce: '测试是皇测试是皇上为何测试是皇测试是皇上为何独克测试是皇上为何独克测试是皇上为何独克上为何独克测试是皇测试是皇上为何独克测试是皇上为何独克测试是皇上为何独克上为何独克独克测试是皇上为何独克测试是皇上为何独克上为何独克hi测试是皇测试是皇上为何测试是皇测试是皇上为何独克测试是皇上为何独克测试是皇上为何独克上为何独克测试是皇测试是皇上为何独克测试是皇上为何独克测试是皇上为何独克上为何独克独克测试是皇上为何独克测试是皇上为何独克上为何独克hi'
-				}, {
-					artId: 1,
-					title: '没错这是一个！标题！！',
-					imgUrl: '../../static/img/people.png',
-					introduce: '测试是皇测试是皇上为何测试是皇测试是皇上为何独克测试是皇上为何独克测试是皇上为何独克上为何独克测试是皇测试是皇上为何独克测试是皇上为何独克测试是皇上为何独克上为何独克独克测试是皇上为何独克测试是皇上为何独克上为何独克hi测试是皇测试是皇上为何测试是皇测试是皇上为何独克测试是皇上为何独克测试是皇上为何独克上为何独克测试是皇测试是皇上为何独克测试是皇上为何独克测试是皇上为何独克上为何独克独克测试是皇上为何独克测试是皇上为何独克上为何独克hi'
-				}, {
-					artId: 1,
-					title: '没错这是一个！标题！！',
-					imgUrl: '../../static/img/people.png',
-					introduce: '测试是皇测试是皇上为何测试是皇测试是皇上为何独克测试是皇上为何独克测试是皇上为何独克上为何独克测试是皇测试是皇上为何独克测试是皇上为何独克测试是皇上为何独克上为何独克独克测试是皇上为何独克测试是皇上为何独克上为何独克hi测试是皇测试是皇上为何测试是皇测试是皇上为何独克测试是皇上为何独克测试是皇上为何独克上为何独克测试是皇测试是皇上为何独克测试是皇上为何独克测试是皇上为何独克上为何独克独克测试是皇上为何独克测试是皇上为何独克上为何独克hi'
 				}]
 			};
+		},methods:{
+			handelArticle(e){
+				uni.navigateTo({
+					url:`/pages/articleDetail/articleDetail?artId=${e}`,	
+				})
+			}
 		}
 	}
 </script>
