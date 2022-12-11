@@ -16,6 +16,9 @@
 </template>
 
 <script>
+	import {
+		$http
+	} from '@/serve/request.js'
 	export default {
 		name: "article-list",
 		data() {
@@ -27,10 +30,19 @@
 					introduce: '测试是皇测试是皇上为何测试是皇测试是皇上为何独克测试是皇上为何独克测试是皇上为何独克上为何独克测试是皇测试是皇上为何独克测试是皇上为何独克测试是皇上为何独克上为何独克独克测试是皇上为何独克测试是皇上为何独克上为何独克hi测试是皇测试是皇上为何测试是皇测试是皇上为何独克测试是皇上为何独克测试是皇上为何独克上为何独克测试是皇测试是皇上为何独克测试是皇上为何独克测试是皇上为何独克上为何独克独克测试是皇上为何独克测试是皇上为何独克上为何独克hi'
 				}]
 			};
-		},methods:{
+		},
+		created() {
+			this.getArticleList()
+		},
+		methods:{
 			handelArticle(e){
 				uni.navigateTo({
 					url:`/pages/articleDetail/articleDetail?artId=${e}`,	
+				})
+			},getArticleList(){
+				$http('/communicate/getArticleList').then(res=>{
+					this.articleList=res
+					
 				})
 			}
 		}

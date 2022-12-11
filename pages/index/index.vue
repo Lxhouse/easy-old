@@ -2,7 +2,7 @@
 	<view class="inde-warp">
 		<u-button type="primary" text="健康" @click="goHealth"></u-button>
 		<u-button type="primary" text="社区" @click="goCommunity"></u-button>
-		<u-button type="primary" text="子女"></u-button>
+		<u-button type="primary" text="子女" @click="goData"></u-button>
 
 	</view>
 
@@ -21,9 +21,14 @@
 					url: '/pages/health/health'
 				})
 			},
-			goCommunity(){
+			goCommunity() {
 				uni.navigateTo({
-					url:'/pages/community/community'
+					url: '/pages/community/community'
+				})
+			},
+			goData() {
+				uni.navigateTo({
+					url: '/pages/healthData/healthData'
 				})
 			}
 		}
