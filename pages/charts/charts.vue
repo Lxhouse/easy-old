@@ -26,55 +26,27 @@
 </template>
 
 <script>
+	import {
+		$http
+	} from '@/serve/request.js'
 	export default {
 		data() {
 			return {
-				value: '测试测试测试',
+				value: '',
 				chartContentList: [{
 						location: 'left',
 						content: '测试机我i'
 					},
-					{
-						location: 'right',
-						content: '我来问问题'
-					}, {
-						location: 'left',
-						content: '测试机我i'
-					},
-					{
-						location: 'right',
-						content: '我来问问题'
-					}, {
-						location: 'left',
-						content: '测试机我i'
-					},
-					{
-						location: 'right',
-						content: '我来问问题'
-					}, {
-						location: 'left',
-						content: '测试机我i'
-					},
-					{
-						location: 'right',
-						content: '我来问问题'
-					}, {
-						location: 'left',
-						content: '测试机我i'
-					},
-					{
-						location: 'right',
-						content: '我来问问题'
-					}
+
 				]
 			};
 		},
-		mounted(){
+		mounted() {
 			this.$nextTick(() => {
 				document.querySelector('.charts_content').scrollTop = document.querySelector('.charts_content')
 					.scrollHeight;
 			})
-			
+
 		},
 		methods: {
 			send() {
@@ -82,11 +54,22 @@
 					location: 'right',
 					content: this.value
 				})
-				this.value = ''
-				this.$nextTick(() => {
-					document.querySelector('.charts_content').scrollTop = document.querySelector('.charts_content')
-						.scrollHeight;
+				$http('/parent/aiDialogResult', {
+					text: this.value
+				},'POST').then(res => {
+					this.chartContentList.push({
+						location: 'left',
+						content: res
+					})
+				}).finally(() => {
+					this.value = ''
+					this.$nextTick(() => {
+						document.querySelector('.charts_content').scrollTop = document.querySelector(
+								'.charts_content')
+							.scrollHeight;
+					})
 				})
+
 
 			}
 		}

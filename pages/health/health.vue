@@ -189,8 +189,7 @@
 						icon: 'error',
 						title: "打卡失败"
 					})
-				).finally(
-					this.changeShow()
+				).finally(()=>this.changeShow()
 				)
 
 
