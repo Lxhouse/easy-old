@@ -140,7 +140,7 @@
 			getCardInfo() {
 				const req = {
 					id: 1,
-					data: moment().format('YYYY-MM-DD')
+					date: moment().format('YYYY-MM-DD')
 				}
 				$http('/parent/checkDailyInfo', req).then(
 					rees => {
