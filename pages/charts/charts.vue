@@ -35,7 +35,7 @@
 				value: '',
 				chartContentList: [{
 						location: 'left',
-						content: '测试机我i'
+						content: '你好呀！欢迎向我提问各种问题哦！'
 					},
 
 				]

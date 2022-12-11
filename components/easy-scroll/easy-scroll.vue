@@ -5,7 +5,8 @@
                 v-for="(item,index) of list" 
                 :class="{active:index==viewNavIndex}"
                 @click="handleClickNav(index)"
-                :key="index">分类{{index}}</view>
+                :key="index">{{item.itemClassName}}
+			</view>
         </view>
         <view class="list-wrapper">
             <scroll-view class="list-container" id="list-container"
@@ -16,11 +17,11 @@
                 :show-scrollbar="false"
                 :scroll-with-animation="true">
                 <view class="list" v-for="(item,listIndex) of list" :key="listIndex" :id="'scroll-item-'+listIndex">
-                    <view class="title"><text>分类{{listIndex}}-对应内容</text></view>
+                    <view class="title"><text>{{item.itemClassName}}-对应内容</text></view>
                     <view class="item-container">
-                        <view class="item" v-for="(item,index) of [1,2,3,4,5]" :key="index">
-                            <image src="/static/img/chart.png" mode=""></image>
-                            <view class="name">分类{{listIndex}}-{{index}}</view>
+                        <view class="item" v-for="(itemTwo,index) of item.drugList" :key="index">
+                            <image :src="itemTwo.img" mode=""></image>
+                            <view class="name">{{itemTwo.name}}</view>
                         </view>
                     </view>
                 </view>
@@ -40,13 +41,16 @@ export default {
     },
     data() {
         return {
-            list: Array(16).fill(1),//列表数据
+            list:[{itemClassName:'发烧药',drugList:[{img:'/static/img/chart.png',name:'牛逼药'},{img:'/static/img/chart.png',name:'牛逼药'}]},{itemClassName:'感冒药',drugList:[{img:'/static/img/chart.png',name:'牛逼药'},{img:'/static/img/chart.png',name:'牛逼药'}]}],
             isTouchScrollView: false,
             clickedNavIndex: 0,
             viewNavIndex: 0,
             nodeInfoList: [],
         }
     },
+	created() {
+		this.getDrugList()
+	},
     methods:{
         init(){
             const query = uni.createSelectorQuery().in(this);
@@ -81,6 +85,11 @@ export default {
         handleTouchScrollView(){
             this.isTouchScrollView = true;
         },
+		getDrugList(){
+			$http('/parent/getDrugList').then(res=>{
+				this.list=res
+			})
+		}
     },
     mounted() {
         this.$nextTick(function(){
