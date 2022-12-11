@@ -161,7 +161,6 @@
 				}
 			},
 			changeShow() {
-				console.log(123321, '测试')
 				this.show = !this.show
 			},
 			handelForm() {

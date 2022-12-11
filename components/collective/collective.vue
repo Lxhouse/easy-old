@@ -12,16 +12,27 @@
 			</view>
 			<view class="info-block--footer">
 				<!-- <view :class="{unLiekBox:true,likeBox:isLike}" @click="onLike"></view> -->
-				<image :src="item.isLike===0?'/static/img//unLike.png':'/static/img//isLike.png'" mode="aspectFill"
+				<image :src="item.isLike!==1?'/static/img//unLike.png':'/static/img//isLike.png'" mode="aspectFill"
 					class="info-commit" @click="handelLike(item)"></image><span
 					style='margin-left: 10rpx;'>{{item.likeNum||0}}</span>
 				<image src="/static/img/commit.png" mode="aspectFill" class="info-commit"></image><span
 					style='margin-left: 10rpx;'>{{item.messageNum||0}}</span>
 			</view>
 		</view>
-		<view class="info-send">
+		<view class="info-send" @click="changeShow">
 			<u-icon name="plus" color="#000" size="28"></u-icon>
 		</view>
+		<u-popup :show="popupInfo.show" @close="changeShow" mode='bottom'>
+			<view style="height: 400rpx; margin: 30rpx;">
+				<view style="font-weight: 900;margin-bottom: 40rpx;">说点什么吧：</view>
+				<u--textarea v-model="popupInfo.content" placeholder="请输入内容"></u--textarea>
+				<view style="display: flex;margin-top: 30rpx;">
+					<u-button type="success" :disabled="popupInfo.content===''" text="发送" @click="handelSend"
+						style='width:250rpx'></u-button>
+					<u-button type="primary" text="取消" @click="changeShow" style='width:250rpx'></u-button>
+				</view>
+			</view>
+		</u-popup>
 	</view>
 </template>
 
@@ -38,28 +49,11 @@
 					isLike: 1,
 					likeNum: 22,
 					messageNum: 23
-				}, {
-					messageID: 2,
-					name: '我是大牛逼??',
-					avaterSrc: '/static/img/people.png',
-					content: '这是用来测试发送的,这是用来测试发送的,这是用来测试发送的,这是用来测试发送的,这是用来测试发送的',
-					isLike: 0,
-					likeNum: 2,
-				}, {
-					messageID: 3,
-					name: '我是大牛逼',
-					avaterSrc: '/static/img/people.png',
-					content: '这是用来测试发送的,这是用来测试发送的,这是用来测试发送的,这是用来测试发送的,这是用来测试发送的',
-					isLike: 1,
-					likeNum: 0,
-				}, {
-					messageID: 4,
-					name: '我是大牛逼',
-					avaterSrc: '/static/img/people.png',
-					content: '这是用来测试发送的,这是用来测试发送的,这是用来测试发送的,这是用来测试发送的,这是用来测试发送的',
-					isLike: 0,
-					likeNum: 0,
 				}],
+				popupInfo: {
+					show: false,
+					content: ''
+				}
 
 			};
 		},
@@ -68,19 +62,34 @@
 		},
 		methods: {
 			handelLike(_item) {
+				//调用接口
 				this.infoList = this.infoList.map(e => {
-					if (e.messageID === _item.messageID) {
+					if (e.messageID === _item.messageID) {	
 						const _islike = _item.isLike
-						const _likeNum = _item.likeNum
+						const _likeNum = _item.likeNum||0
 						return {
 							...e,
-							isLike: _islike === 0 ? 1 : 0,
+							isLike: _islike !== 1 ? 1 : 0,
 							likeNum: _islike === 0 ? _likeNum + 1 : _likeNum - 1
 						}
-					}else{
+					} else {
 						return e
 					}
 				})
+			},
+			changeShow() {
+				this.popupInfo.show = !this.popupInfo.show
+				this.popupInfo.content = ''
+			},
+			handelSend() {
+				this.infoList.unshift({
+					messageID: this.infoList?.length + 1 || 0,
+					name: '我是大牛逼',
+					avaterSrc: '/static/img/people.png',
+					content: this.popupInfo.content
+				})
+
+				this.changeShow()
 			}
 		}
 	}
@@ -88,11 +97,14 @@
 
 <style lang="scss">
 	.collective {
-		margin: 0 20rpx;
+		margin: 0 30rpx;
 		height: calc(100vh - 240rpx);
 		overflow-y: auto;
 
 		.info-block {
+			box-shadow: 0 10px 6px -6px rgba(30, 30, 30, 0.1), 12px 0 8px -8px rgba(50, 50, 50, 0.1);
+			transition: all .2s ease-in-out;
+
 			.info-block--head {
 				margin-left: 20rpx;
 				height: 100rpx;
@@ -103,11 +115,13 @@
 
 			.info-block--body {
 				text-indent: 2em;
-
+				margin:0 30rpx;
+				line-height: 55rpx;
 			}
 
 			.info-block--footer {
 				display: flex;
+				justify-content: flex-end;
 				height: 100rpx;
 
 				align-items: center;
