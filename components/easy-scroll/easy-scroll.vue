@@ -31,6 +31,10 @@
 </template>
 
 <script>
+	import {
+		$http
+	} from '@/serve/request.js'
+
 export default {
     name: 'easy-scroll',
     props:{

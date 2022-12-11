@@ -15,7 +15,7 @@
 				<image :src="item.isLike!==1?'/static/img//unLike.png':'/static/img//isLike.png'" mode="aspectFill"
 					class="info-commit" @click="handelLike(item)"></image><span
 					style='margin-left: 10rpx;'>{{item.likeNum||0}}</span>
-			<!-- 	<image src="/static/img/commit.png" mode="aspectFill" class="info-commit"></image><span
+				<!-- 	<image src="/static/img/commit.png" mode="aspectFill" class="info-commit"></image><span
 					style='margin-left: 10rpx;'>{{item.messageNum||0}}</span> -->
 			</view>
 		</view>
@@ -37,6 +37,10 @@
 </template>
 
 <script>
+	import {
+		$http
+	} from '@/serve/request.js'
+	import moment from 'moment'
 	export default {
 		name: "collective",
 		data() {
@@ -57,40 +61,58 @@
 
 			};
 		},
-		mounted() {
-
+		created() {
+			this.getCollectiveList()
 		},
 		methods: {
 			handelLike(_item) {
 				//调用接口
-				this.infoList = this.infoList.map(e => {
-					if (e.messageID === _item.messageID) {	
-						const _islike = _item.isLike
-						const _likeNum = _item.likeNum||0
-						return {
-							...e,
-							isLike: _islike !== 1 ? 1 : 0,
-							likeNum: _islike === 0 ? _likeNum + 1 : _likeNum - 1
-						}
-					} else {
-						return e
-					}
-				})
+				this.toLike(_item)
+				// this.infoList = this.infoList.map(e => {
+				// 	if (e.messageID === _item.messageID) {
+				// 		const _islike = _item.isLike
+				// 		const _likeNum = _item.likeNum || 0
+				// 		return {
+				// 			...e,
+				// 			isLike: _islike !== 1 ? 1 : 0,
+				// 			likeNum: _islike === 0 ? _likeNum + 1 : _likeNum - 1
+				// 		}
+				// 	} else {
+				// 		return e
+				// 	}
+				// })
 			},
 			changeShow() {
 				this.popupInfo.show = !this.popupInfo.show
 				this.popupInfo.content = ''
 			},
 			handelSend() {
-				this.infoList.unshift({
-					messageID: this.infoList?.length + 1 || 0,
-					name: '我是大牛逼',
-					avaterSrc: '/static/img/people.png',
+				const data = {
+					id: 1,
 					content: this.popupInfo.content
+				}
+				$http('/communicate/send', data).then(res => {
+					this.getCollectiveList()
+					this.changeShow()
 				})
+			},
+			getCollectiveList() {
+				$http('/communicate/getCollectiveList').then(res => {
+					if (Array.isArray(res)) {
+						this.infoList = res
+					}
+				})
+			},
+			toLike(item) {
+				const data = {
+					id: 1,
+					messageID: item.messageID
+				}
+				$http('/communicate/toLike', data).then(res => {
+					this.getCollectiveList()
+				})
+			},
 
-				this.changeShow()
-			}
 		}
 	}
 </script>
@@ -115,7 +137,7 @@
 
 			.info-block--body {
 				text-indent: 2em;
-				margin:0 30rpx;
+				margin: 0 30rpx;
 				line-height: 55rpx;
 			}
 
