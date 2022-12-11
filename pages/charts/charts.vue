@@ -69,6 +69,13 @@
 				]
 			};
 		},
+		mounted(){
+			this.$nextTick(() => {
+				document.querySelector('.charts_content').scrollTop = document.querySelector('.charts_content')
+					.scrollHeight;
+			})
+			
+		},
 		methods: {
 			send() {
 				this.chartContentList.push({
