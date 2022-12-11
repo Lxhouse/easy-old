@@ -13,28 +13,7 @@
 	export default {
 		data() {
 			return {
-				list: [{
-						avatar: 'https://bjetxgzv.cdn.bspapp.com/VKCEYUGU-uni-app-doc/6acec660-4f31-11eb-a16f-5b3e54966275.jpg',
-						title: '整理会议记录文档1',
-						time: '45分钟',
-						details: '首要任务',
-						date: '10:30'
-					},
-					{
-						avatar: 'https://bjetxgzv.cdn.bspapp.com/VKCEYUGU-uni-app-doc/6acec660-4f31-11eb-a16f-5b3e54966275.jpg',
-						title: '整理会议记录文档',
-						time: '45分钟',
-						details: '首要任务',
-						date: '10:30'
-					},
-					{
-						avatar: 'https://bjetxgzv.cdn.bspapp.com/VKCEYUGU-uni-app-doc/6acec660-4f31-11eb-a16f-5b3e54966275.jpg',
-						title: '整理会议记录文档',
-						time: '45分钟',
-						details: '首要任务',
-						date: '10:30'
-					}
-				],
+				list: [],
 				extraData: [{
 					date: '2022-12-10',
 					value: '签到',
@@ -75,9 +54,10 @@
 					id: 1,
 					date: moment().format('YYYY-MM-DD')
 				}
-				$http('/getPlay/CardInfo',{data}).then(res=>{
-					this.list=res.list
-					this.extraData=res.extraData
+				$http('/parent/signBitMap',{data}).then(res=>{
+					if(Array.isArray(res.extraData)){
+						this.extraData=res.extraData
+					}
 				}).catch(
 					uni.showToast({
 						icon: 'error',
