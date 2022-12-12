@@ -19,7 +19,7 @@
 					value: '签到',
 					status: true,
 					dot: true,
-					
+
 				}, {
 					date: '2022-12-11',
 					value: '未签到',
@@ -50,13 +50,17 @@
 				console.log(row, index)
 			},
 			getInfo() {
+				const id = uni.getStorageSync('userId');
+
 				const data = {
-					id: 1,
+					id: id,
 					date: moment().format('YYYY-MM-DD')
 				}
-				$http('/parent/signBitMap',{data}).then(res=>{
-					if(Array.isArray(res.extraData)){
-						this.extraData=res.extraData
+				$http('/parent/signBitMap', {
+					data
+				}).then(res => {
+					if (Array.isArray(res.extraData)) {
+						this.extraData = res.extraData
 					}
 				}).catch(
 					uni.showToast({

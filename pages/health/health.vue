@@ -4,10 +4,10 @@
 			<view class="titleBox u-flex" style="border: none;padding-bottom: 50rpx;">
 				<view class="title">功能与服务</view>
 			</view>
-			<u-grid :col="4" :border="false">
+			<u-grid :col="3" :border="false">
 				<u-grid-item v-for="(item,index) in moreFun" :key="index" @click="navClick(item.onPlate)">
 					<view class="u-flex u-p-t-30 u-p-b-30"
-						style="position: relative;display:flex;align-items: center;flex-direction: column;font-weight: 900; column;justify-content: center;">
+						style="position: relative;display:flex;align-items: center;flex-direction: column;font-weight: 900; column;justify-content: center;margin-bottom: 40rpx;">
 						<image style="width: 70rpx;height: 70rpx;" :src="item.icon" />
 						<view class="grid-text" style="color: #666;font-size: 22rpx;">{{item.word}}</view>
 					</view>
@@ -110,7 +110,11 @@
 						word: '药品查询',
 						onPlate: 'onHelp',
 					},
-
+					{
+						icon: '/static/img/entertainment.png',
+						word: '娱乐',
+						onPlate: 'happy',
+					},
 				],
 			};
 		},
@@ -135,11 +139,16 @@
 					uni.navigateTo({
 						url: '/pages/drugs/drugs'
 					})
+				} else if (e === 'happy') {
+					uni.navigateTo({
+						url: '/pages/community/community'
+					})
 				}
 			},
 			getCardInfo() {
+				const id = uni.getStorageSync('userId');
 				const req = {
-					id: 1,
+					id: id,
 					date: moment().format('YYYY-MM-DD')
 				}
 				$http('/parent/checkDailyInfo', req).then(
@@ -189,8 +198,7 @@
 						icon: 'error',
 						title: "打卡失败"
 					})
-				).finally(()=>this.changeShow()
-				)
+				).finally(() => this.changeShow())
 
 
 			}
@@ -305,18 +313,3 @@
 		}
 	}
 </style>
-/*
-活动能量
-静息能量
-步数
-已爬楼层
-步行步长
-步行速度
-
-睡眠
-血压
-心率
-体温
-血糖
-体重
-*/

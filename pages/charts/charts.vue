@@ -56,7 +56,7 @@
 				})
 				$http('/parent/aiDialogResult', {
 					text: this.value
-				},'POST').then(res => {
+				}, 'POST').then(res => {
 					this.chartContentList.push({
 						location: 'left',
 						content: res

@@ -4,7 +4,8 @@
 			<view class="">
 				<view
 					style="font-size: 40rpx;font-weight: 900;height: 80rpx;display: flex;align-items: center;justify-content: center;">
-					{{item.title}}</view>
+					{{item.title}}
+				</view>
 				<charts :type="item.type||'line'" :chartData="item.chartData"></charts>
 			</view>
 		</view>
@@ -59,8 +60,9 @@
 		},
 		methods: {
 			getHealthData() {
+				const id = uni.getStorageSync('userId');
 				const data = {
-					id: 1,
+					id: id,
 					date: moment().format('YYYY-MM-DD')
 				}
 				$http('/parent/getHealthData', data).then(res => {

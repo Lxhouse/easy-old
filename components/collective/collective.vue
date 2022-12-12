@@ -87,8 +87,9 @@
 				this.popupInfo.content = ''
 			},
 			handelSend() {
+				const id = uni.getStorageSync('userId');
 				const data = {
-					id: 1,
+					id: id,
 					content: this.popupInfo.content
 				}
 				$http('/communicate/send', data).then(res => {
@@ -104,8 +105,10 @@
 				})
 			},
 			toLike(item) {
+				const id = uni.getStorageSync('userId');
+
 				const data = {
-					id: 1,
+					id: id,
 					messageID: item.messageID
 				}
 				$http('/communicate/toLike', data).then(res => {

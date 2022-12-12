@@ -1,63 +1,80 @@
 {
 	"pages": [{
-		"path": "pages/index/index",
-		"style": {
-			"navigationBarTitleText": "首页"
-		}
-	}, {
-		"path": "pages/health/health",
-		"style": {
-			"navigationBarTitleText": "健康",
-			"enablePullDownRefresh": false
-		}
-	}, {
-		"path": "pages/healthData/healthData",
-		"style": {
-			"navigationBarTitleText": "健康数据",
-			"enablePullDownRefresh": false
+			"path": "pages/index/index",
+			"style": {
+				"navigationBarTitleText": "首页"
+			}
+		}, {
+			"path": "pages/health/health",
+			"style": {
+				"navigationBarTitleText": "健康",
+				"enablePullDownRefresh": false
+			}
+		}, {
+			"path": "pages/healthData/healthData",
+			"style": {
+				"navigationBarTitleText": "健康数据",
+				"enablePullDownRefresh": false
+			}
+
+		}, {
+			"path": "pages/signIn/signIn",
+			"style": {
+				"navigationBarTitleText": "打卡信息",
+				"enablePullDownRefresh": false
+			}
+
+		}, {
+			"path": "pages/charts/charts",
+			"style": {
+				"navigationBarTitleText": "智能问答",
+				"enablePullDownRefresh": false
+			}
+
+		}, {
+			"path": "pages/drugs/drugs",
+			"style": {
+				"navigationBarTitleText": "药品查询",
+				"enablePullDownRefresh": false
+			}
+
+		}, {
+			"path": "pages/community/community",
+			"style": {
+				"navigationBarTitleText": "娱乐",
+				"enablePullDownRefresh": false
+			}
+
+		}, {
+			"path": "pages/articleDetail/articleDetail",
+			"style": {
+				"navigationBarTitleText": "详情界面",
+				"enablePullDownRefresh": false
+			}
+
+		}, {
+			"path": "pages/login/login",
+			"style": {
+				"navigationBarTitleText": "登录",
+				"enablePullDownRefresh": false
+			}
+
 		}
 
-	}    ,{
-            "path" : "pages/signIn/signIn",
+	    ,{
+            "path" : "pages/registered/registered",
             "style" :                                                                                    
             {
-                "navigationBarTitleText": "打卡信息",
+                "navigationBarTitleText": "注册",
                 "enablePullDownRefresh": false
             }
             
         }
         ,{
-            "path" : "pages/charts/charts",
+            "path" : "pages/offspring/offspring",
             "style" :                                                                                    
             {
-                "navigationBarTitleText": "智能问答",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-        ,{
-            "path" : "pages/drugs/drugs",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "药品查询",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-        ,{
-            "path" : "pages/community/community",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "娱乐",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-        ,{
-            "path" : "pages/articleDetail/articleDetail",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "详情界面",
+                "navigationBarTitleText": "子女",
                 "enablePullDownRefresh": false
             }
             
