@@ -62,11 +62,12 @@
 					if (Array.isArray(res.extraData)) {
 						this.extraData = res.extraData
 					}
-				}).catch(
-					uni.showToast({
-						icon: 'error',
-						title: "初始化失败"
-					})
+				}).catch(err => {
+						uni.showToast({
+							icon: 'error',
+							title: "初始化失败"
+						})
+					}
 				)
 			}
 		}

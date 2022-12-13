@@ -17,7 +17,7 @@
 		<view class="clockIn" @click="handleClock">
 			<button :class="{clockBtn:true,wanc:!isClock,succeed:isClock} ">{{clockBtnText}}</button>
 		</view>
-		<u-popup :show="show" @close="changeShow" mode="right" customStyle="width:700rpx">
+		<u-popup :show="show&&isClock" @close="changeShow" mode="right" customStyle="width:700rpx">
 			<view style="margin-top: 30rpx;margin-left: 30rpx;overflow: auto;height: 96vh;width: 600rpx;">
 				<view style="font-weight: 900;">请填写健康信息：</view>
 				<u-form labelPosition="left">
@@ -152,22 +152,20 @@
 					date: moment().format('YYYY-MM-DD')
 				}
 				$http('/parent/checkDailyInfo', req).then(
-					rees => {
+					res => {
 						if (res) {
-							this.isClock = true
-							his.clockBtnText = "已打卡"
-						} else {
 							this.isClock = false
-							his.clockBtnText = "未打卡"
+							this.clockBtnText = "已打卡"
+						} else {
+							this.isClock = true
+							this.clockBtnText = "未打卡"
 						}
 					}
 				)
 			},
 			handleClock() {
 				this.changeShow()
-				if (this.isClock === false) {
-
-				}
+		
 			},
 			changeShow() {
 				this.show = !this.show
@@ -189,16 +187,18 @@
 							temper: '',
 							weight: ''
 						}
+						this.isClock=false;
+						this.clockBtnText='已打卡'
 						this.showToast({
 							title: '打卡成功'
 						})
 					}
-				).catch(
+				).catch(err => {
 					uni.showToast({
 						icon: 'error',
 						title: "打卡失败"
 					})
-				).finally(() => this.changeShow())
+				}).finally(() => this.changeShow())
 
 
 			}

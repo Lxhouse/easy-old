@@ -10,10 +10,7 @@
 				<u--input border="surround" v-model="info.name"></u--input>
 			</view>
 
-			<view class="login_item">
-				<view style="font-weight: 900;width: 120rpx;">角色：</view>
-				<uni-data-select v-model="info.role" :localdata="range"></uni-data-select>
-			</view>
+
 			<view class="login_item">
 				<view style="font-weight: 900;width: 120rpx;">身份证：</view>
 				<u--input border="surround" v-model="info.idCard"></u--input>
@@ -24,7 +21,7 @@
 			</view>
 			<view class="login_item">
 				<view style="font-weight: 900;width: 120rpx;">密码：</view>
-				<u--input border="surround" v-model="info.pwd"></u--input>
+				<u--input border="surround" v-model="info.pwd" password></u--input>
 			</view>
 			<view class="login_item">
 				<view style="font-weight: 900;width: 120rpx;">验证码：</view>
@@ -56,9 +53,8 @@
 					name: '',
 					pwd: '',
 					idCard: '',
-					role: '',
+					role: 'parent',
 					correctCode: '',
-					username: '',
 					date: moment().format('YYYY-MM-DD')
 				},
 				code: '',
@@ -104,20 +100,22 @@
 				return /^1[3-9]\d{9}$/.test(mobile)
 			},
 			toRegistered() {
-				if (code !== correctCode) {
+				if (this.code != this.correctCode.data.data) {
+					console.log(this.code);
+					console.log(this.correctCode);
 					uni.showToast({
 						title: '请确认验证码',
 						icon: 'error'
 					})
 				} else {
 					let flag = true;
-					for (var key in ruleForm) {
-						if (!ruleForm[key]) {
+					for (var key in this.ruleForm) {
+						if (!this.ruleForm[key]) {
 							flag = false
 						};
 					}
 					if (flag) {
-						$http('/registerAccount', this.info).then(res => {
+						$http('/admin/registerAccount', this.info,'POST').then(res => {
 							uni.showToast({
 								title: '注册成功',
 							})

@@ -11,7 +11,7 @@
 			</view>
 			<view class="login_item">
 				<view style="font-weight: 900;">密码：</view>
-				<u--input border="surround" v-model="password"></u--input>
+				<u--input border="surround" v-model="password" password></u--input>
 			</view>
 			<view class="login_item">
 				<u-button type="success" class="btn" text="登录" @click="toLogin"></u-button>
@@ -75,19 +75,23 @@
 						// 存和取
 						// 存 id 和 role
 						try {
-							uni.setStorageSync('userId', res.user_id);
-							uni.setStorageSync('role', res.role);
-							if (role === 'parent') {
+							uni.setStorageSync('userId', res.data.data.userId);
+							uni.setStorageSync('role', res.data.data.role);
+							console.log(this.role);
+							console.log(this.userId);
+							
+							if (uni.getStorageSync('role') === 'parent') {
 								uni.navigateTo({
 									url: '/pages/health/health'
 								})
-							} else if (role === 'child') {
+							} else if (uni.getStorageSync('role') === 'child') {
 								uni.navigateTo({
 									url: '/pages/offspring/offspring'
 								})
 							}
 						} catch (e) {
 							// error
+							console.log(e)
 						}
 					}).catch(err => {
 						uni.showToast({
