@@ -59,7 +59,7 @@
 				}, 'POST').then(res => {
 					this.chartContentList.push({
 						location: 'left',
-						content: res
+						content: res?.data
 					})
 				}).finally(() => {
 					this.value = ''

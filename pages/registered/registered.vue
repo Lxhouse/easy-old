@@ -12,7 +12,7 @@
 
 			<view class="login_item">
 				<view style="font-weight: 900;width: 120rpx;">角色：</view>
-				<uni-data-select v-model="info.role" :localdata="range" @change="change"></uni-data-select>
+				<uni-data-select v-model="info.role" :localdata="range"></uni-data-select>
 			</view>
 			<view class="login_item">
 				<view style="font-weight: 900;width: 120rpx;">身份证：</view>
@@ -31,7 +31,7 @@
 				<u--input border="surround" v-model="code">
 					<template slot="suffix">
 						<u-code ref="uCode" @change="codeChange" seconds="60" changeText="X秒重新获取"></u-code>
-						<u-button @tap="getCode" :text="tips" :disabled="!isMobile(name)" type="success" size="mini">
+						<u-button @tap="getCode" :text="tips" :disabled="!isMobile(info.phone)" type="success" size="mini">
 						</u-button>
 					</template>
 				</u--input>
@@ -86,7 +86,7 @@
 						title: '正在获取验证码'
 					})
 					$http('/admin/sendCode', {
-						phone: this.name
+						phone: this.info.phone
 					}).then(res => {
 						uni.hideLoading();
 						this.correctCode = res

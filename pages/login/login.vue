@@ -61,14 +61,15 @@
 				return /^1[3-9]\d{9}$/.test(mobile)
 			},
 			toLogin() {
-				if (!this.isMobile(this.value) || this.password.length < 8) {
+				console.log(!this.isMobile(this.name) , this.password==='')
+				if ( this.password==='') {
 					uni.showToast({
-						title: '请输入完整',
+						title: '请确认密码',
 						icon: 'error'
 					})
 				} else {
 					$http('/admin/login', {
-						userName: this.value,
+						userName: this.name,
 						pwd: this.password
 					}).then(res => {
 						// 存和取
