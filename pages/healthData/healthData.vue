@@ -1,12 +1,12 @@
 <template>
 	<view>
-		<view class="" v-for="item in chartDataList">
+		<view class="" v-for="(item,index) in chartDataList">
 			<view class="">
 				<view
 					style="font-size: 40rpx;font-weight: 900;height: 80rpx;display: flex;align-items: center;justify-content: center;">
 					{{item.title}}
 				</view>
-				<charts :type="item.type||'line'" :chartData="item.chartData"></charts>
+				<charts :type="item.type||'line'" :chartData="{chartData:item.chartData,index:index+'charts'}"></charts>
 			</view>
 		</view>
 	</view>
@@ -60,6 +60,19 @@
 		},
 		methods: {
 			getHealthData() {
+				// uni.request({
+				// 	url:'https://yxwdata.huwentec.com/yxw/getData',
+				// 	method:'GET',
+				// 	// data,
+				// 	success:(res)=> {
+				// 		// resolve(res)
+				// 		this.chartDataList = res.data.data
+				// 		console.log( res.data.data)
+				// 	},
+				// 	fail: (err) => {
+				// 		reject(err)
+				// 	}
+				// })
 				const id = uni.getStorageSync('userId');
 				const data = {
 					id: id,

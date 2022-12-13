@@ -189,7 +189,8 @@
 				year: 2022,
 				month: 10,
 				day: 10,
-				isOpen: false
+				isOpen: false,
+				newExtraData:[]
 			}
 		},
 		onLoad() {
@@ -203,6 +204,19 @@
 			this.day = day
 			this.initTime()
 			this.initApi(this.year, this.month)
+		},
+		watch:{
+			extraData:function(_value){
+				console.log(123321,{_value})
+				this.newExtraData=_value
+				this.isOpen = this.isUnfold
+				const { year, month, day  } = this.date
+				this.year = year
+				this.month = month
+				this.day = day
+				this.initTime()
+				this.initApi(this.year, this.month)
+			}
 		},
 		onNavigationBarButtonTap(e){
 			console.log(e)
@@ -284,7 +298,7 @@
 				let list = []
 				for(let i = 1; i <= count; i++ ){
 					let data = {};
-					for(let item of this.extraData){
+					for(let item of this.newExtraData){
 						let dateString = item.date;
 						let dateArr = dateString.indexOf('-') !== -1 ? dateString.split('-') : dateString.indexOf('/') !== -1 ? dateString.split('/') :  [];
 						if(dateArr.length === 3 && Number(dateArr[0]) === Number(this.year) && Number(dateArr[1]) === Number(this.month) && Number(dateArr[2]) === Number(i)){

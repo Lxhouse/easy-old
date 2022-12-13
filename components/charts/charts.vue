@@ -1,18 +1,19 @@
 <template>
 	<view>
 		<view class="n-chart_warp--inline">
-			<qiun-data-charts :type="type" :chartData="chartData" :opts="opts"
-				:ontouch="true" :canvas2d="true"  />
+			<qiun-data-charts :type="type" :chartData="newChartData" :opts="opts" :canvasId="chartData.index"
+				touch="true" />
 		</view>
 	</view>
 </template>
 
 <script>
 	export default {
-		name:"charts",
-		props:['type','chartData'],
+		name: "charts",
+		props: ['type', 'chartData'],
 		data() {
 			return {
+				newChartData: {},
 				opts: {
 					dataLabel: false,
 					canvas2d: true,
@@ -38,7 +39,15 @@
 				},
 			};
 		},
-	
+		created() {
+			console.log(123321, this.chartData, this.chartData.index)
+		},
+		watch: {
+			chartData: function(_value) {
+				this.newChartData = _value.chartData || {}
+			}
+		}
+
 	}
 </script>
 
