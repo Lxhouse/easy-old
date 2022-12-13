@@ -61,8 +61,8 @@
 				return /^1[3-9]\d{9}$/.test(mobile)
 			},
 			toLogin() {
-				console.log(!this.isMobile(this.name) , this.password==='')
-				if ( this.password==='') {
+				console.log(!this.isMobile(this.name), this.password === '')
+				if (this.password === '') {
 					uni.showToast({
 						title: '请确认密码',
 						icon: 'error'
@@ -79,7 +79,7 @@
 							uni.setStorageSync('role', res.data.data.role);
 							console.log(this.role);
 							console.log(this.userId);
-							
+
 							if (uni.getStorageSync('role') === 'parent') {
 								uni.navigateTo({
 									url: '/pages/health/health'
@@ -107,7 +107,11 @@
 					url: '/pages/registered/registered'
 				})
 			}
-		}
+		},
+		mounted() {
+			let a = document.getElementsByClassName('uni-page-head-hd')[0]
+			a.style.display = 'none';
+		},
 	}
 </script>
 

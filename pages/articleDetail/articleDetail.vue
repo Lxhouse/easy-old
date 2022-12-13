@@ -12,22 +12,25 @@
 	export default {
 		data() {
 			return {
-				title: '这边是写标题的',
-				content: `<p>露从今夜白，月是故乡明</p>
-					<img src="https://cdn.uviewui.com/uview/swiper/2.jpg" />`
+				title: '',
+				content: ``
 			};
 		},
 		onLoad(option) {
 			console.log(option.artId)
+			this.getArtDetails(option.artId)
 		},
-		getArtDetails(_id) {
-			$http('/communicate/getArtDetails', {
-				artId: _id
-			}).then(res => {
-				this.title = res.title
-				this.content = res.content
-			})
+		methods: {
+			getArtDetails(_id) {
+				$http('/communicate/getArtDetails', {
+					artId: _id
+				}).then(res => {
+					this.title = res.title
+					this.content = res.content
+				})
+			}
 		}
+
 	}
 </script>
 

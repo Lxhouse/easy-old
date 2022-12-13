@@ -118,6 +118,11 @@
 						word: '娱乐',
 						onPlate: 'happy',
 					},
+					{
+						icon: '/static/img/logout.png',
+						word: '退出',
+						onPlate: 'logout',
+					},
 				],
 			};
 		},
@@ -146,6 +151,11 @@
 					uni.navigateTo({
 						url: '/pages/community/community'
 					})
+				}else if (e === 'logout') {
+					uni.redirectTo({
+						url: '/pages/login/login'
+					})
+					uni.clearStorageSync()
 				}
 			},
 			getCardInfo() {

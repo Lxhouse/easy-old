@@ -8,9 +8,9 @@
 					<view class="grid-text" style="color: #666;font-size: 22rpx;">{{item.word}}</view>
 				</view>
 			</u-grid-item>
-				<u-button type="primary" text="退出登录" @click="unLogin"></u-button>
+			<u-button type="primary" text="退出登录" @click="unLogin"></u-button>
 		</u-grid>
-	
+
 	</view>
 </template>
 
@@ -35,6 +35,10 @@
 						icon: '/static/img/query.png',
 						word: '药品查询',
 						onPlate: 'onHelp',
+					}, {
+						icon: '/static/img/logout.png',
+						word: '退出',
+						onPlate: 'logout',
 					},
 
 				],
@@ -66,11 +70,16 @@
 					uni.navigateTo({
 						url: '/pages/community/community'
 					})
+				} else if (e === 'logout') {
+					uni.redirectTo({
+						url: '/pages/login/login'
+					})
+					uni.clearStorageSync()
 				}
 			},
-			unLogin(){
+			unLogin() {
 				uni.redirectTo({
-					url:'/pages/login/login'
+					url: '/pages/login/login'
 				})
 				uni.clearStorageSync()
 			}
