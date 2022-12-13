@@ -90,7 +90,8 @@
 					stepsLength: '',
 					stepsSpeed: '',
 					temper: '',
-					weight: ''
+					weight: '',
+					userId:uni.getStorageSync('userId')
 				},
 				moreFun: [{
 						icon: '/static/img/time.png',
@@ -153,7 +154,8 @@
 				}
 				$http('/parent/checkDailyInfo', req).then(
 					res => {
-						if (res) {
+						console.log(res.data.data)
+						if (res.data.data) {
 							this.isClock = false
 							this.clockBtnText = "已打卡"
 						} else {
@@ -185,11 +187,12 @@
 							stepsLength: '',
 							stepsSpeed: '',
 							temper: '',
-							weight: ''
+							weight: '',
+							userId:''
 						}
 						this.isClock=false;
 						this.clockBtnText='已打卡'
-						this.showToast({
+						uni.showToast({
 							title: '打卡成功'
 						})
 					}
@@ -198,6 +201,7 @@
 						icon: 'error',
 						title: "打卡失败"
 					})
+					console.log(err)
 				}).finally(() => this.changeShow())
 
 

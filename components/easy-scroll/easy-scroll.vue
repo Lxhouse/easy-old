@@ -91,7 +91,8 @@ export default {
         },
 		getDrugList(){
 			$http('/parent/getDrugList').then(res=>{
-				this.list=res
+				console.log(res.data.data)
+				this.list=res.data.data
 			})
 		}
     },

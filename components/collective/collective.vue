@@ -98,9 +98,15 @@
 				})
 			},
 			getCollectiveList() {
-				$http('/communicate/getCollectiveList').then(res => {
-					if (Array.isArray(res)) {
-						this.infoList = res
+				const id = uni.getStorageSync('userId');
+				const data = {
+					id: id
+				}
+				console.log(id)
+				$http('/communicate/getCollectiveList',data).then(res => {
+					console.log(res);
+					if (Array.isArray(res.data.data)) {
+						this.infoList = res.data.data
 					}
 				})
 			},

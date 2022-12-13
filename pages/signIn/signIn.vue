@@ -27,10 +27,15 @@
 					dot: true,
 				}]
 			}
-		},
-		created() {
-			this.getInfo()
-		},
+		},created() {
+   this.getInfo()
+  },
+  mounted() {
+   this.getInfo()
+  },
+  onLoad() {
+   this.getInfo()
+  },
 		methods: {
 			// 点击日数方法
 			clickActive({
@@ -59,10 +64,14 @@
 				$http('/parent/signBitMap', {
 					data
 				}).then(res => {
-					if (Array.isArray(res.extraData)) {
-						this.extraData = res.extraData
+					
+					if (Array.isArray(res.data.data)) {
+						console.log(res.data.data)
+						this.extraData = res.data.data
+						console.log(res.data.data)
 					}
 				}).catch(err => {
+					console.log(err);
 						uni.showToast({
 							icon: 'error',
 							title: "初始化失败"

@@ -41,7 +41,8 @@
 				})
 			},getArticleList(){
 				$http('/communicate/getArticleList').then(res=>{
-					this.articleList=res
+					console.log(res)
+					this.articleList=res.data.data
 					
 				})
 			}

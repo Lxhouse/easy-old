@@ -78,16 +78,18 @@
 					id: id,
 					date: moment().format('YYYY-MM-DD')
 				}
-				$http('/parent/getHealthData', data).then(res => {
-					if (Array.isArray(res)) {
-						this.chartDataList = res
-					}
-				}).catch(
-					uni.showToast({
-						icon: 'error',
-						title: "初始化失败"
+				
+				try{
+					$http('/parent/getHealthData', data).then(res => {
+						if (Array.isArray(res.data.data)) {
+							this.chartDataList = res.data.data
+						}
 					})
-				)
+				}catch(e){
+					//TODO handle the exception
+					console.log(e)
+				}
+			
 			}
 		}
 	}
