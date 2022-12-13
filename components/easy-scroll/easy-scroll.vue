@@ -1,6 +1,6 @@
 <template>
+	<view class="">	<u-modal :show="show" title="药品详情" :content='content' @close="closeShow" @confirm="closeShow"></u-modal>
     <view class="container">
-			<u-modal :show="show" :title="药品详情" :content='content'></u-modal>
         <view class="nav-list">
             <view class="nav-item"
                 v-for="(item,index) of list" 
@@ -28,6 +28,7 @@
                 </view>
             </scroll-view>
         </view>
+		</view>
     </view>
 </template>
 
@@ -99,11 +100,14 @@ export default {
 			})
 		},getdetail(item){
 
-		item?.drugId&&$http('/parent/getDrugInfo',{drugId:item?.drugId}).then(res=>{
+		item?.drugId&&$http('/parent/getDrugInfo',{drugId:item?.drugId}).then(res1=>{
+			const res=res.data.data
 				this.show=true;
 				this.content=`${res.medName}是${res.prescription}是由${res.mainComponent}组成的，
 				通常它的售卖单价是${res.price}元`
 			})
+		},closeShow(){
+			this.show=false
 		}
     },
     mounted() {
