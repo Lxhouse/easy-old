@@ -13,10 +13,12 @@
 					</view>
 				</u-grid-item>
 			</u-grid>
+					
 		</view>
 		<view class="clockIn" @click="handleClock">
 			<button :class="{clockBtn:true,wanc:!isClock,succeed:isClock} ">{{clockBtnText}}</button>
 		</view>
+			<!-- <u-button type="primary" text="退出登录" @click="unLogin"></u-button> -->
 		<u-popup :show="show&&isClock" @close="changeShow" mode="right" customStyle="width:700rpx">
 			<view style="margin-top: 30rpx;margin-left: 30rpx;overflow: auto;height: 96vh;width: 600rpx;">
 				<view style="font-weight: 900;">请填写健康信息：</view>

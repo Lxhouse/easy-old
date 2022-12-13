@@ -1,6 +1,6 @@
 <template>
 	<view class="health_warp">
-		<u-grid :col="1" :border="false">
+		<u-grid :col="2" :border="false">
 			<u-grid-item v-for="(item,index) in moreFun" :key="index" @click="navClick(item.onPlate)">
 				<view class="u-flex u-p-t-30 u-p-b-30"
 					style="position: relative;display:flex;align-items: center;flex-direction: column;font-weight: 900; column;justify-content: center;margin-bottom: 140rpx;">
@@ -8,7 +8,9 @@
 					<view class="grid-text" style="color: #666;font-size: 22rpx;">{{item.word}}</view>
 				</view>
 			</u-grid-item>
+				<u-button type="primary" text="退出登录" @click="unLogin"></u-button>
 		</u-grid>
+	
 	</view>
 </template>
 
@@ -66,6 +68,12 @@
 					})
 				}
 			},
+			unLogin(){
+				uni.redirectTo({
+					url:'/pages/login/login'
+				})
+				uni.clearStorageSync()
+			}
 		}
 	}
 </script>
