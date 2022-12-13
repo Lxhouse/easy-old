@@ -1,5 +1,6 @@
 <template>
     <view class="container">
+			<u-modal :show="show" :title="药品详情" :content='content'></u-modal>
         <view class="nav-list">
             <view class="nav-item"
                 v-for="(item,index) of list" 
@@ -19,7 +20,7 @@
                 <view class="list" v-for="(item,listIndex) of list" :key="listIndex" :id="'scroll-item-'+listIndex">
                     <view class="title"><text>{{item.itemClassName}}-对应内容</text></view>
                     <view class="item-container">
-                        <view class="item" v-for="(itemTwo,index) of item.drugList" :key="index">
+                        <view class="item" v-for="(itemTwo,index) of item.drugList" :key="index" @click="getdetail(itemTwo)">
                             <image :src="itemTwo.img" mode=""></image>
                             <view class="name">{{itemTwo.name}}</view>
                         </view>
@@ -50,6 +51,8 @@ export default {
             clickedNavIndex: 0,
             viewNavIndex: 0,
             nodeInfoList: [],
+			show:false,
+			content:''
         }
     },
 	created() {
@@ -94,6 +97,13 @@ export default {
 				console.log(res.data.data)
 				this.list=res.data.data
 			})
+		},getdetail(item){
+
+		item?.drugId&&$http('/parent/getDrugInfo',{drugId:item?.drugId}).then(res=>{
+				this.show=true;
+				this.content=`${res.medName}是${res.prescription}是由${res.mainComponent}组成的，
+				通常它的售卖单价是${res.price}元`
+			})
 		}
     },
     mounted() {
@@ -116,7 +126,7 @@ export default {
         display flex
         flex-direction column
         align-items center
-        font-size 34rpx
+        font-size 17rpx
         &::-webkit-scrollbar
             width 0
             height 0
@@ -159,6 +169,6 @@ export default {
                         height 104rpx
                         margin-bottom 28rpx
                     .name
-                        font-size 23rpx
+                        font-size 11rpx
                         color #0000008a
 </style>
