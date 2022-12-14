@@ -1,23 +1,39 @@
 <template>
-	<view class="health_warp">
-		<u-grid :col="2" :border="false">
-			<u-grid-item v-for="(item,index) in moreFun" :key="index" @click="navClick(item.onPlate)">
-				<view class="u-flex u-p-t-30 u-p-b-30"
-					style="position: relative;display:flex;align-items: center;flex-direction: column;font-weight: 900; column;justify-content: center;margin-bottom: 140rpx;">
-					<image style="width: 70rpx;height: 70rpx;" :src="item.icon" />
-					<view class="grid-text" style="color: #666;font-size: 22rpx;">{{item.word}}</view>
-				</view>
-			</u-grid-item>
-			<u-button type="primary" text="退出登录" @click="unLogin"></u-button>
-		</u-grid>
-
+	<view class="">
+		<view class="health_warp">
+			<!-- <u-alert class="qwe" v-if="tipTop.show" :title="tipTop.title" type="warning" center ></u-alert> -->
+			<u-notice-bar class="qwe" :text="tipTop.title" bgColor='#339900' color='#fff'></u-notice-bar>
+			<u-grid :col="2" :border="false">
+				<u-grid-item v-for="(item,index) in moreFun" :key="index" @click="navClick(item.onPlate)">
+					<view class="u-flex u-p-t-30 u-p-b-30"
+						style="position: relative;display:flex;align-items: center;flex-direction: column;font-weight: 900; column;justify-content: center;margin-bottom: 140rpx;">
+						<image style="width: 70rpx;height: 70rpx;" :src="item.icon" />
+						<view class="grid-text" style="color: #666;font-size: 22rpx;">{{item.word}}</view>
+					</view>
+				</u-grid-item>
+			</u-grid>
+		</view>
+		<u-modal :show="modal.show" :content='modal.content' @confirm="close"></u-modal>
 	</view>
+
 </template>
 
 <script>
+	import {
+		$http
+	} from '@/serve/request.js'
+	import moment from 'moment'
 	export default {
 		data() {
 			return {
+				modal: {
+					show: false,
+					content: '父母今天还没健康信息打卡哦！记得提醒一下呀！！',
+				},
+				tipTop: {
+					show: true,
+					title: '父母都很想你哦！有空记得回家多看看父母呀！',
+				},
 				moreFun: [{
 						icon: '/static/img/time.png',
 						word: '打卡信息',
@@ -43,6 +59,9 @@
 
 				],
 			};
+		},
+		created() {
+			this.check()
 		},
 		mounted() {
 			let a = document.getElementsByClassName('uni-page-head-hd')[0]
@@ -82,6 +101,21 @@
 					url: '/pages/login/login'
 				})
 				uni.clearStorageSync()
+			},
+			check() {
+				const id = uni.getStorageSync('userId');
+				const data = {
+					id: id,
+					date: moment().format('YYYY-MM-DD')
+				}
+				$http('/child/checkParentDaily', data).then(res => {
+					if (res===false) {
+						this.close()
+					}
+				})
+			},
+			close() {
+				this.modal.show = !this.modal.show
 			}
 		}
 	}
@@ -91,6 +125,7 @@
 	.health_warp {
 		display: flex;
 		height: calc(100vh - 240rpx);
+
 		padding: 10rpx;
 		align-items: center;
 		justify-content: center;
@@ -194,5 +229,12 @@
 				}
 			}
 		}
+	}
+
+	.qwe {
+		position: fixed;
+		top: 44px;
+		left: 0;
+		width: 100vw;
 	}
 </style>

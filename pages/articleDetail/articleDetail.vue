@@ -25,8 +25,9 @@
 				$http('/communicate/getArtDetails', {
 					artId: _id
 				}).then(res => {
-					this.title = res.title
-					this.content = res.content
+					console.log(res.data.data)
+					this.title = res.data.data.title
+					this.content = res.data.data.content
 				})
 			}
 		}

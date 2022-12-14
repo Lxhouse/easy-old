@@ -90,12 +90,14 @@
 								})
 							}
 						} catch (e) {
-							// error
-							console.log(e)
+							uni.showToast({
+								title: '登录失败,请检查账号密码',
+								icon: 'error'
+							})
 						}
 					}).catch(err => {
 						uni.showToast({
-							title: '登录失败',
+							title: '登录失败,请检查账号密码',
 							icon: 'error'
 						})
 					})

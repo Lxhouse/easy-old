@@ -99,9 +99,9 @@ export default {
 				this.list=res.data.data
 			})
 		},getdetail(item){
-
+			
 		item?.drugId&&$http('/parent/getDrugInfo',{drugId:item?.drugId}).then(res1=>{
-			const res=res.data.data
+			const res=res1.data.data;
 				this.show=true;
 				this.content=`${res.medName}是${res.prescription}是由${res.mainComponent}组成的，
 				通常它的售卖单价是${res.price}元`
@@ -173,6 +173,6 @@ export default {
                         height 104rpx
                         margin-bottom 28rpx
                     .name
-                        font-size 11rpx
+                        font-size 23rpx
                         color #0000008a
 </style>
