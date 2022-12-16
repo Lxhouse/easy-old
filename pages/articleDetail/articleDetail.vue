@@ -1,7 +1,8 @@
 <template>
+	<page-meta :root-font-size="'24px'"></page-meta>
 	<view class="article-detail">
 		<view class="article-detail__head">{{title}}</view>
-		<u-parse :content="content"></u-parse>
+		<u-parse  class="article-detail__body" :content="content"></u-parse>
 	</view>
 </template>
 
@@ -46,9 +47,13 @@
 			align-items: center;
 			justify-content: center;
 			height: 100rpx;
-			font-size: 50rpx;
+			font-size: 2rem;
 			margin-bottom: 30rpx;
 			font-weight: 900;
+		}
+
+		&__body {
+			font-size: 1rem;
 		}
 	}
 </style>

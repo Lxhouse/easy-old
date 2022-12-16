@@ -13,12 +13,12 @@
 					</view>
 				</u-grid-item>
 			</u-grid>
-					
 		</view>
 		<view class="clockIn" @click="handleClock">
 			<button :class="{clockBtn:true,wanc:!isClock,succeed:isClock} ">{{clockBtnText}}</button>
 		</view>
-			<!-- <u-button type="primary" text="退出登录" @click="unLogin"></u-button> -->
+
+		<!-- <u-button type="primary" text="退出登录" @click="unLogin"></u-button> -->
 		<u-popup :show="show&&isClock" @close="changeShow" mode="right" customStyle="width:700rpx">
 			<view style="margin-top: 30rpx;margin-left: 30rpx;overflow: auto;height: 96vh;width: 600rpx;">
 				<view style="font-weight: 900;">请填写健康信息：</view>
@@ -93,7 +93,7 @@
 					stepsSpeed: '',
 					temper: '',
 					weight: '',
-					userId:uni.getStorageSync('userId')
+					userId: uni.getStorageSync('userId')
 				},
 				moreFun: [{
 						icon: '/static/img/time.png',
@@ -119,11 +119,19 @@
 						onPlate: 'happy',
 					},
 					{
+						icon: '/static/img/font.png',
+						word: '字体调整',
+						onPlate: 'font',
+					},
+					{
 						icon: '/static/img/logout.png',
 						word: '退出',
 						onPlate: 'logout',
 					},
 				],
+
+	
+
 			};
 		},
 		created() {
@@ -151,11 +159,16 @@
 					uni.navigateTo({
 						url: '/pages/community/community'
 					})
-				}else if (e === 'logout') {
+				} else if (e === 'logout') {
 					uni.redirectTo({
 						url: '/pages/login/login'
 					})
 					uni.clearStorageSync()
+				}else if (e === 'font') {
+					uni.navigateTo({
+						url: '/pages/font/font'
+					})
+			
 				}
 			},
 			getCardInfo() {
@@ -179,7 +192,7 @@
 			},
 			handleClock() {
 				this.changeShow()
-		
+
 			},
 			changeShow() {
 				this.show = !this.show
@@ -200,10 +213,10 @@
 							stepsSpeed: '',
 							temper: '',
 							weight: '',
-							userId:''
+							userId: ''
 						}
-						this.isClock=false;
-						this.clockBtnText='已打卡'
+						this.isClock = false;
+						this.clockBtnText = '已打卡'
 						uni.showToast({
 							title: '打卡成功'
 						})
