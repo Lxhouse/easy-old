@@ -1,5 +1,5 @@
 <template>
-	<page-meta :root-font-size="'24px'"></page-meta>
+	<page-meta :root-font-size="`${fontSize}px`"></page-meta>
 	<view class="article-detail">
 		<view class="article-detail__head">{{title}}</view>
 		<u-parse  class="article-detail__body" :content="content"></u-parse>
@@ -14,10 +14,13 @@
 		data() {
 			return {
 				title: '这个是标题呀兄弟',
-				content: `<H1>测试测试</H1><span>我最牛逼，我是超级无敌牛逼的！！！！s<span>`
+				content: `<H1>测试测试</H1><span>我最牛逼，我是超级无敌牛逼的！！！！s<span>`,
+				fontSize:14
 			};
 		},
 		onLoad(option) {
+			console.log(123321,uni.getStorageSync('fontSize'))
+			this.fontSize=uni.getStorageSync('fontSize')??14
 			console.log(option.artId)
 			this.getArtDetails(option.artId)
 		},

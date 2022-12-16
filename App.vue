@@ -1,6 +1,10 @@
 <script>
 	export default {
+		onInit() {
+				uni.setStorageSync('fontSize', 14)	
+		},
 		onLaunch: function() {
+	
 			console.log('App Launch')
 		},
 		onShow: function() {
@@ -15,5 +19,5 @@
 
 <style lang="scss">
 	/*每个页面公共css */
-@import "uni_modules/uview-ui/index.scss";
+	@import "uni_modules/uview-ui/index.scss";
 </style>
