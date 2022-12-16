@@ -12,8 +12,8 @@
 	export default {
 		data() {
 			return {
-				title: '',
-				content: ``
+				title: '这个是标题呀兄弟',
+				content: `<H1>测试测试</H1><span>我最牛逼，我是超级无敌牛逼的！！！！s<span>`
 			};
 		},
 		onLoad(option) {
@@ -38,7 +38,7 @@
 <style lang="scss">
 	.article-detail {
 		margin: 0 30rpx;
-		height: calc(100vh - 240rpx);
+		height: calc(100vh - 90rpx);
 		overflow-y: auto;
 
 		&__head {
