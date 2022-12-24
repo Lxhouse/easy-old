@@ -1,4 +1,5 @@
 <template>
+
 	<view>
 		<u-subsection :list="list" :current="current" @change="changeTab"></u-subsection>
 		<collective v-if="current===0" />

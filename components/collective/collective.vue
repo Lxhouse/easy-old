@@ -131,6 +131,7 @@
 		margin: 0 30rpx;
 		height: calc(100vh - 240rpx);
 		overflow-y: auto;
+		font-size: 30rpx;
 
 		.info-block {
 			box-shadow: 0 10px 6px -6px rgba(30, 30, 30, 0.1), 12px 0 8px -8px rgba(50, 50, 50, 0.1);

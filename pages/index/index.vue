@@ -1,4 +1,4 @@
-<template>
+	<template>
 	<view class="index-warp">
 		<!-- 	<u-button type="primary" text="健康" @click="goHealth"></u-button>
 		<u-button type="primary" text="社区" @click="goCommunity"></u-button>

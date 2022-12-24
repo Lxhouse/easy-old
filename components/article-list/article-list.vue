@@ -58,6 +58,7 @@
 		display: flex;
 		flex-direction: column;
 		align-items: center;
+		font-size: 30rpx;
 		// justify-content: center;
 
 		.article-list__item {
