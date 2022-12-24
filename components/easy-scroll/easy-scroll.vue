@@ -1,5 +1,7 @@
 <template>
-	<view class="">	<u-modal :show="show" title="药品详情" :content='content' @close="closeShow" @confirm="closeShow"></u-modal>
+	<view >	<u-modal :show="show" title="药品详情" :content='content' @close="closeShow" @confirm="closeShow">
+	<text class="modalSty" style="font-size: 1rem;">{{content}}</text>
+	</u-modal>
     <view class="container">
         <view class="nav-list">
             <view class="nav-item"
@@ -53,7 +55,7 @@ export default {
             viewNavIndex: 0,
             nodeInfoList: [],
 			show:false,
-			content:''
+			content:'降低说几句窦娥hi有五个发热回复降低说几句窦娥hi有五个发热回复降低说几句窦娥hi有五个发热回复1'
         }
     },
 	created() {

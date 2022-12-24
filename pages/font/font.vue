@@ -1,5 +1,6 @@
 <template>
 	<view class="font_warp">
+		<text style="font-size: 34rpx;font-weight: 900;">作用于文章字体，以及药品详情字体</text>
 		<view :style="`font-size:${fontSize}px`" class="font_text"> <text style="">字体大小{{fontSize}}</text></view>
 		<view class="font_slider">	<u-slider v-model="fontSize" min="10" step="1" max="22"></u-slider></view>
 		<u-button style="width: 200rpx;margin-top: 30rpx;" type="success" text="确定修改" @click="changeSize"></u-button>
