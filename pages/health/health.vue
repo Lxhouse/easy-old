@@ -24,40 +24,42 @@
 				<view style="font-weight: 900;">请填写健康信息：</view>
 				<u-form labelPosition="left">
 					<u-form-item label="血压" prop="healthInfo.blood" borderBottom>
-						<u--input v-model="healthInfo.blood" border="none" placeholder="请输入"></u--input>
+						<u--input v-model="healthInfo.blood" border="none" placeholder="请输入" >
+							<template slot="suffix">mmHg</template>
+						</u--input>
 					</u-form-item>
 					<u-form-item label="血糖" prop="healthInfo.bloodSugar" borderBottom>
-						<u--input v-model="healthInfo.bloodSugar" border="none" placeholder="请输入"></u--input>
+						<u--input v-model="healthInfo.bloodSugar" border="none" placeholder="请输入">	<template slot="suffix">mmol/L</template></u--input>
 					</u-form-item>
 					<u-form-item label="已爬楼层" prop="healthInfo.floor" borderBottom>
-						<u--input v-model="healthInfo.floor" border="none" placeholder="请输入"></u--input>
+						<u--input v-model="healthInfo.floor" border="none" placeholder="请输入"><template slot="suffix">层</template></u--input>
 					</u-form-item>
 					<u-form-item label="心跳" prop="healthInfo.heart" borderBottom>
-						<u--input v-model="healthInfo.heart" border="none" placeholder="请输入"></u--input>
+						<u--input v-model="healthInfo.heart" border="none" placeholder="请输入"><template slot="suffix">次/分</template></u--input>
 					</u-form-item>
 					<u-form-item label="活动能量" prop="healthInfo.playEnergy" borderBottom>
-						<u--input v-model="healthInfo.playEnergy" border="none" placeholder="请输入"></u--input>
+						<u--input v-model="healthInfo.playEnergy" border="none" placeholder="请输入"><template slot="suffix">千卡</template></u--input>
 					</u-form-item>
 					<u-form-item label="静息能量" prop="healthInfo.restingEnergy" borderBottom>
-						<u--input v-model="healthInfo.restingEnergy" border="none" placeholder="请输入"></u--input>
+						<u--input v-model="healthInfo.restingEnergy" border="none" placeholder="请输入"><template slot="suffix">千卡</template></u--input>
 					</u-form-item>
 					<u-form-item label="睡眠时长" prop="healthInfo.sleep" borderBottom>
-						<u--input v-model="healthInfo.sleep" border="none" placeholder="请输入"></u--input>
+						<u--input v-model="healthInfo.sleep" border="none" placeholder="请输入"><template slot="suffix">小时</template></u--input>
 					</u-form-item>
 					<u-form-item label="步数" prop="healthInfo.steps" borderBottom>
-						<u--input v-model="healthInfo.steps" border="none" placeholder="请输入"></u--input>
+						<u--input v-model="healthInfo.steps" border="none" placeholder="请输入"><template slot="suffix">步</template></u--input>
 					</u-form-item>
 					<u-form-item label="步行层数" prop="healthInfo.stepsLength" borderBottom>
-						<u--input v-model="healthInfo.stepsLength" border="none" placeholder="请输入"></u--input>
+						<u--input v-model="healthInfo.stepsLength" border="none" placeholder="请输入"><template slot="suffix">层</template></u--input>
 					</u-form-item>
 					<u-form-item label="步行速度" prop="healthInfo.stepsSpeed" borderBottom>
-						<u--input v-model="healthInfo.stepsSpeed" border="none" placeholder="请输入"></u--input>
+						<u--input v-model="healthInfo.stepsSpeed" border="none" placeholder="请输入"><template slot="suffix">公里/时</template></u--input>
 					</u-form-item>
 					<u-form-item label="温度" prop="healthInfo.temper" borderBottom>
-						<u--input v-model="healthInfo.temper" border="none" placeholder="请输入"></u--input>
+						<u--input v-model="healthInfo.temper" border="none" placeholder="请输入"><template slot="suffix">℃</template></u--input>
 					</u-form-item>
 					<u-form-item label="体重" prop="healthInfo.weight" borderBottom>
-						<u--input v-model="healthInfo.weight" border="none" placeholder="请输入"></u--input>
+						<u--input v-model="healthInfo.weight" border="none" placeholder="请输入"><template slot="suffix">kg</template></u--input>
 					</u-form-item>
 					<u-button type="success" text="确定" @click="handelForm"></u-button>
 					<u-button type="primary" text="暂存" @click="changeShow" style='margin-top: 30rpx;'></u-button>
@@ -129,7 +131,7 @@
 				clockBtnText: "未打卡",
 				isClock: true,
 				show: false,
-				infoShow: true,
+				infoShow: false,
 				personalInfo: {},
 				healthInfo: {
 					blood: '',
@@ -157,6 +159,7 @@
 					height:'',
 					weight:'',
 					medicalHistory:0,
+					userId: uni.getStorageSync('userId')
 				},
 				moreFun: [{
 						icon: '/static/img/time.png',

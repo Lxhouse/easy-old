@@ -109,7 +109,7 @@
 					date: moment().format('YYYY-MM-DD')
 				}
 				$http('/child/checkParentDaily', data).then(res => {
-					if (res===false) {
+					if (res.data.data===false) {
 						this.close()
 					}
 				})

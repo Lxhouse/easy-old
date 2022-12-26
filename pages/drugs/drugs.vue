@@ -17,7 +17,7 @@
 			this.getArtDetails(option.artId)
 		},	methods: {
 			getArtDetails(_id) {
-				$http('/communicate/getArtDetails', {
+				$http('/communicate/getArtDetailsById', {
 					artId: _id
 				}).then(res => {
 					console.log(res.data.data)
