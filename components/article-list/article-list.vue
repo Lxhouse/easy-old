@@ -34,16 +34,17 @@
 		created() {
 			this.getArticleList()
 		},
-		methods:{
-			handelArticle(e){
+		methods: {
+			handelArticle(e) {
 				uni.navigateTo({
-					url:`/pages/articleDetail/articleDetail?artId=${e}`,	
+					url: `/pages/articleDetail/articleDetail?artId=${e}`,
 				})
-			},getArticleList(){
-				$http('/communicate/getArticleList').then(res=>{
+			},
+			getArticleList() {
+				$http('/communicate/getArticleList').then(res => {
 					console.log(res)
-					this.articleList=res.data.data
-					
+					this.articleList = res.data.data
+
 				})
 			}
 		}

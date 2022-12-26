@@ -1,6 +1,6 @@
 <template>
 	<view class="collective">
-		<view class="info-block" v-for="item in infoList">
+		<view class="info-block" v-for="item in infoList"  @click="handelArticle(item.messageID)">
 			<view class="info-block--head">
 				<u-avatar :src="item.avaterSrc" shape="circle" size="30"></u-avatar>
 				<span style="margin-left: 20rpx;">{{item.name}}</span>
@@ -119,6 +119,10 @@
 				}
 				$http('/communicate/toLike', data).then(res => {
 					this.getCollectiveList()
+				})
+			},handelArticle(e) {
+				uni.navigateTo({
+					url: `/pages/commit/commit?postId=${e}`,
 				})
 			},
 
