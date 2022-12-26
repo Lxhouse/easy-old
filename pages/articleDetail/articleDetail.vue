@@ -2,6 +2,7 @@
 	<page-meta :root-font-size="`${fontSize}px`"></page-meta>
 	<view class="article-detail">
 		<view class="article-detail__head">{{title}}</view>
+		<u-button type="primary" text="语音播报" @click="speak"></u-button>
 		<u-parse  class="article-detail__body" :content="content"></u-parse>
 	</view>
 </template>
@@ -10,12 +11,14 @@
 	import {
 		$http
 	} from '@/serve/request.js'
+	import Speech from 'speak-tts'
 	export default {
 		data() {
 			return {
-				title: '这个是标题呀兄弟',
+				title: '标题',
 				content: `<H1>测试测试</H1><span>我最牛逼，我是超级无敌牛逼的！！！！s<span>`,
-				fontSize:14
+				fontSize:14,
+				  speech:null,
 			};
 		},
 		onLoad(option) {
@@ -23,6 +26,9 @@
 			this.fontSize=uni.getStorageSync('fontSize')??14
 			console.log(option.artId)
 			this.getArtDetails(option.artId)
+		},
+		mounted() {
+		  this.speechInit();	
 		},
 		methods: {
 			getArtDetails(_id) {
@@ -33,7 +39,21 @@
 					this.title = res.data.data.title
 					this.content = res.data.data.content
 				})
-			}
+			},
+			speechInit(){
+			     this.speech = new Speech();
+			     this.speech.setLanguage('zh-CN');
+			     this.speech.init().then(()=>{
+			        console.log('语音播报初始化完成...')
+			      })
+			   },
+			   
+			   //语音播报
+			   speak(){
+			     this.speech.speak({text:this.content}).then(()=>{
+			       console.log("播报完成...")
+			     })
+			   }
 		}
 
 	}

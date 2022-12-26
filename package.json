@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "moment": "^2.29.4",
+    "speak-tts": "^2.0.8"
+  }
+}

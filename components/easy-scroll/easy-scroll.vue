@@ -1,6 +1,6 @@
 <template>
 	<view >	<u-modal :show="show" title="药品详情" :content='content' @close="closeShow" @confirm="closeShow">
-	<text class="modalSty" style="font-size: 1rem;">{{content}}</text>
+	<text class="modalSty" style="font-size: 1rem;">{{content}}<u-button style="margin-top: 30rpx;" type="primary" text="语音播报" @click="speak"></u-button></text>
 	</u-modal>
     <view class="container">
         <view class="nav-list">
@@ -38,7 +38,7 @@
 	import {
 		$http
 	} from '@/serve/request.js'
-
+import Speech from 'speak-tts'
 export default {
     name: 'easy-scroll',
     props:{
@@ -55,6 +55,8 @@ export default {
             viewNavIndex: 0,
             nodeInfoList: [],
 			show:false,
+			
+      speech:null,
 			content:'降低说几句窦娥hi有五个发热回复降低说几句窦娥hi有五个发热回复降低说几句窦娥hi有五个发热回复1'
         }
     },
@@ -110,12 +112,29 @@ export default {
 			})
 		},closeShow(){
 			this.show=false
-		}
+		},
+		speechInit(){
+		     this.speech = new Speech();
+		     this.speech.setLanguage('zh-CN');
+		     this.speech.init().then(()=>{
+		        console.log('语音播报初始化完成...')
+		      })
+		   },
+		   
+		   //语音播报
+		   speak(){
+		     this.speech.speak({text:this.content}).then(()=>{
+		       console.log("播报完成...")
+		     })
+		   }
+		
+		
     },
     mounted() {
         this.$nextTick(function(){
             this.init()
-        })
+        }),
+		  this.speechInit();
     }
 }
 </script>

@@ -66,6 +66,55 @@
 
 		</u-popup>
 
+		<u-popup :show="infoShow" @close="changeInfoShow" mode="left" customStyle="width:700rpx">
+			<view style="margin-top: 30rpx;margin-left: 30rpx;overflow: auto;height: 96vh;width: 600rpx;">
+				<view style="font-weight: 900;">请填写个人信息：</view>
+				<u-form labelPosition="left">
+					<u-form-item label="年龄" prop="personalInfo.age" borderBottom>
+						<u--input v-model="personalInfo.age" border="none" placeholder="请输入"></u--input>
+					</u-form-item>
+					<u-form-item label="血压范围" prop="personalInfo.bloodScope" borderBottom>
+						<u--input v-model="personalInfo.bloodScope" border="none" placeholder="请输入"></u--input>
+					</u-form-item>
+					<u-form-item label="有无慢性疾病" prop="personalInfo.chroIll" borderBottom>
+						<u-radio-group v-model="personalInfo.chroIll" @change="e=>personalInfo.chroIll===e">
+							<u-radio   label="有" :name="1"> </u-radio>
+							<u-radio style="margin-left: 20rpx;" label="无" :name="0"> </u-radio>
+						</u-radio-group>
+					</u-form-item>
+					<u-form-item label="有无医生诊断报告" prop="personalInfo.healthImg" borderBottom>
+						<u-radio-group v-model="personalInfo.healthImg" @change="e=>personalInfo.healthImg===e">
+							<u-radio label="有" :name="1"> </u-radio>
+							<u-radio   style="margin-left: 20rpx;" label="无" :name="0"> </u-radio>
+						</u-radio-group>
+					</u-form-item>
+					<u-form-item label="健康等级" prop="personalInfo.healthLevel" borderBottom>
+						<u-radio-group v-model="personalInfo.healthLevel" @change="e=>personalInfo.healthLevel===e">
+							<u-radio label="健康" :name="2"> </u-radio>
+							<u-radio   style="margin-left: 20rpx;"  label="良好" :name="1"> </u-radio>
+							<u-radio   style="margin-left: 20rpx;"  label="差" :name="0"> </u-radio>
+						</u-radio-group>
+					</u-form-item>
+					<u-form-item label="心率范围" prop="personalInfo.heartScope" borderBottom>
+						<u--input v-model="personalInfo.heartScope" border="none" placeholder="请输入"></u--input>
+					</u-form-item>
+					<u-form-item label="身高" prop="personalInfo.height" borderBottom>
+						<u--input v-model="personalInfo.height" border="none" placeholder="请输入"></u--input>
+					</u-form-item>
+					<u-form-item label="体重" prop="personalInfo.weight" borderBottom>
+						<u--input v-model="personalInfo.weight" border="none" placeholder="请输入"></u--input>
+					</u-form-item>
+					<u-form-item label="有无病史" prop="personalInfo.medicalHistory" borderBottom>
+						<u-radio-group v-model="personalInfo.medicalHistory" @change="e=>personalInfo.medicalHistory===e">
+							<u-radio label="有" :name="1"> </u-radio>
+							<u-radio   style="margin-left: 20rpx;" label="无" :name="0"> </u-radio>
+						</u-radio-group>
+					</u-form-item>			
+					<u-button type="success" text="确定" @click="addPersonInfo"></u-button>
+				</u-form>
+			</view>
+
+		</u-popup>
 	</view>
 </template>
 
@@ -80,6 +129,8 @@
 				clockBtnText: "未打卡",
 				isClock: true,
 				show: false,
+				infoShow: true,
+				personalInfo: {},
 				healthInfo: {
 					blood: '',
 					bloodSugar: '',
@@ -94,6 +145,18 @@
 					temper: '',
 					weight: '',
 					userId: uni.getStorageSync('userId')
+				},
+				personalInfo:{
+					age:'',
+					bloodScope:'',
+					chroIll:0,
+					date:new moment(),
+					healthImg:0,
+					healthLevel:0,
+					heartScope:'',
+					height:'',
+					weight:'',
+					medicalHistory:0,
 				},
 				moreFun: [{
 						icon: '/static/img/time.png',
@@ -130,12 +193,13 @@
 					},
 				],
 
-	
+
 
 			};
 		},
 		created() {
-			this.getCardInfo()
+			this.getCardInfo();
+			this.chackPersonInfo();
 		},
 		methods: {
 			navClick(e) {
@@ -164,11 +228,11 @@
 						url: '/pages/login/login'
 					})
 					uni.clearStorageSync()
-				}else if (e === 'font') {
+				} else if (e === 'font') {
 					uni.navigateTo({
 						url: '/pages/font/font'
 					})
-			
+
 				}
 			},
 			getCardInfo() {
@@ -196,6 +260,9 @@
 			},
 			changeShow() {
 				this.show = !this.show
+			},
+			changeInfoShow() {
+				this.infoShow = !this.infoShow
 			},
 			handelForm() {
 				$http('/parent/addDailyInfo', this.healthInfo, "POST").then(
@@ -230,6 +297,27 @@
 				}).finally(() => this.changeShow())
 
 
+			},chackPersonInfo(){
+				const id = uni.getStorageSync('userId');
+				const req = {
+					userId: id,
+				}
+				$http('/parent/checkUserInfo',req,'GET').then(res=>{
+					if(res.data.data===false){
+						changeInfoShow()
+					}
+				})
+			},addPersonInfo(){
+				$http('/admin/addOrUpdateUserInfo',this.personalInfo,"POST").then(res=>{
+					changeInfoShow()
+					uni.showToast({
+						icon:'success'
+					})
+				}).catch(()=>{
+					uni.showToast({
+						icon:'error'
+					})
+				})
 			}
 
 		}
