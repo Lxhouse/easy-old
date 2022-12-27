@@ -1,6 +1,6 @@
 <template>
 	<view class="collective">
-		<view class="info-block" v-for="item in infoList"  @click="handelArticle(item.messageID)">
+		<view class="info-block" v-for="item in infoList" >
 			<view class="info-block--head">
 				<u-avatar :src="item.avaterSrc" shape="circle" size="30"></u-avatar>
 				<span style="margin-left: 20rpx;">{{item.name}}</span>
@@ -15,8 +15,8 @@
 				<image :src="item.isLike!==1?'/static/img//unLike.png':'/static/img//isLike.png'" mode="aspectFill"
 					class="info-commit" @click="handelLike(item)"></image><span
 					style='margin-left: 10rpx;'>{{item.likeNum||0}}</span>
-				<!-- 	<image src="/static/img/commit.png" mode="aspectFill" class="info-commit"></image><span
-					style='margin-left: 10rpx;'>{{item.messageNum||0}}</span> -->
+					<image src="/static/img/commit.png" mode="aspectFill" class="info-commit"  @click="handelArticle(item.messageID)"></image><span
+					style='margin-left: 10rpx;'  @click="handelArticle(item.messageID)">{{item.messageNum||0}}</span>
 			</view>
 		</view>
 		<view class="info-send" @click="changeShow">

@@ -97,7 +97,8 @@
 			handelSend() {
 				const id = uni.getStorageSync('userId');
 				const data = {
-					id: id,
+					userId: id,
+					postId:this.pId, 
 					content: this.popupInfo.content
 				}
 				$http('/communicate/sendComment', data).then(res => {
@@ -114,7 +115,8 @@
 
 				const data = {
 					userId: id,
-					contentId: item.contentId
+					contentId: item.contentId,
+					postId:this.pId 
 				}
 				$http('/communicate/thumbsUp', data).then(res => {
 					this.getCommit(this.pId)

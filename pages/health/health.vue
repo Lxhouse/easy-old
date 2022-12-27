@@ -73,10 +73,11 @@
 				<view style="font-weight: 900;">请填写个人信息：</view>
 				<u-form labelPosition="left">
 					<u-form-item label="年龄" prop="personalInfo.age" borderBottom>
-						<u--input v-model="personalInfo.age" border="none" placeholder="请输入"></u--input>
+						<u--input v-model="personalInfo.age" border="none" placeholder="请输入">	<template slot="suffix">岁</template></u--input>
 					</u-form-item>
 					<u-form-item label="血压范围" prop="personalInfo.bloodScope" borderBottom>
-						<u--input v-model="personalInfo.bloodScope" border="none" placeholder="请输入"></u--input>
+						<u--input v-model="personalInfo.bloodScope" border="none" placeholder="请输入">	<template slot="suffix">mmHg</template>
+						</u--input>
 					</u-form-item>
 					<u-form-item label="有无慢性疾病" prop="personalInfo.chroIll" borderBottom>
 						<u-radio-group v-model="personalInfo.chroIll" @change="e=>personalInfo.chroIll===e">
@@ -98,13 +99,16 @@
 						</u-radio-group>
 					</u-form-item>
 					<u-form-item label="心率范围" prop="personalInfo.heartScope" borderBottom>
-						<u--input v-model="personalInfo.heartScope" border="none" placeholder="请输入"></u--input>
+						<u--input v-model="personalInfo.heartScope" border="none" placeholder="请输入"><template slot="suffix">次/每分</template>
+						</u--input>
 					</u-form-item>
 					<u-form-item label="身高" prop="personalInfo.height" borderBottom>
-						<u--input v-model="personalInfo.height" border="none" placeholder="请输入"></u--input>
+						<u--input v-model="personalInfo.height" border="none" placeholder="请输入">	<template slot="suffix">米</template>
+						</u--input>
 					</u-form-item>
 					<u-form-item label="体重" prop="personalInfo.weight" borderBottom>
-						<u--input v-model="personalInfo.weight" border="none" placeholder="请输入"></u--input>
+						<u--input v-model="personalInfo.weight" border="none" placeholder="请输入">	<template slot="suffix">斤</template>
+						</u--input>
 					</u-form-item>
 					<u-form-item label="有无病史" prop="personalInfo.medicalHistory" borderBottom>
 						<u-radio-group v-model="personalInfo.medicalHistory" @change="e=>personalInfo.medicalHistory===e">
@@ -131,7 +135,7 @@
 				clockBtnText: "未打卡",
 				isClock: true,
 				show: false,
-				infoShow: false,
+				infoShow: true,
 				personalInfo: {},
 				healthInfo: {
 					blood: '',
@@ -307,12 +311,12 @@
 				}
 				$http('/parent/checkUserInfo',req,'GET').then(res=>{
 					if(res.data.data===false){
-						changeInfoShow()
+						this.changeInfoShow()
 					}
 				})
 			},addPersonInfo(){
 				$http('/admin/addOrUpdateUserInfo',this.personalInfo,"POST").then(res=>{
-					changeInfoShow()
+					this.changeInfoShow()
 					uni.showToast({
 						icon:'success'
 					})
